@@ -84,7 +84,7 @@
                                 <xsl:element name="gmd:date">
                                     <xsl:element name="gmd:CI_Date">
                                         <xsl:element name="gmd:date">
-                                            <xsl:element name="gco:Date"><xsl:value-of select="/GPM/Identification_Information/Cross_Reference/Publication_Date"/></xsl:element>
+                                            <xsl:element name="gco:Date"><xsl:value-of select="/GPM/Identification_Information[1]/Cross_Reference[1]/Citation[1]/Publication_Date[1]"/></xsl:element>
                                         </xsl:element>
                                         <xsl:element name="gmd:dateType">
                                             <xsl:element name="gmd:CI_DateTypeCode">
