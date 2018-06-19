@@ -68,13 +68,13 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>    
-                <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form/Network_Resource_Name">
+                <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form/Network_Address">
                     <xsl:element name="gmd:transferOptions">
                         <xsl:element name="gmd:MD_DigitalTransferOptions">
                             <xsl:element name="gmd:onLine">
                                 <xsl:element name="gmd:CI_OnlineResource">
                                     <xsl:element name="gmd:linkage">
-                                        <xsl:element name="gmd:URL"> <xsl:value-of select="."/></xsl:element>
+                                        <xsl:element name="gmd:URL"> <xsl:value-of select="./Network_Resource_Name[1]"/></xsl:element>
                                     </xsl:element>
                                     <xsl:if test="../Network_Resource_Description">
                                         <xsl:element name="gmd:description">
