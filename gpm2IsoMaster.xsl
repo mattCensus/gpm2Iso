@@ -26,6 +26,7 @@
     <xsl:import href="../gpm2iso/12_identificationInfo.xsl"/>
     <xsl:import href="../gpm2iso/13_contentInfo.xsl"/>
     <xsl:import href="../gpm2iso/14_distributionInfo.xsl"/>
+    <xsl:import href="../gpm2iso/15_dataQualityInfo.xsl"/>
     
     <xd:doc scope="stylesheet">
         <xd:desc>
@@ -52,6 +53,8 @@
             <xsl:copy-of select="document('')/*/namespace::*[name()='gml']"/>
             <!-- inserts the xsi namespace -->
             <xsl:copy-of select="document('')/*/namespace::*[name()='xsi']"/>
+            <!-- inserts the xmlns="http://www.isotc211.org/2005/gmi namespace -->
+            <xsl:copy-of select="document('')/*/namespace::*[name()='gmi']"/>
             
             <xsl:attribute name="xsi:schemaLocation">http://www.isotc211.org/2005/gmi http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd</xsl:attribute>
             <xsl:call-template name="gpm2GmdfileIdentifier"/>
@@ -63,7 +66,7 @@
             <xsl:call-template name="gpm2GmdMetDate"/>
             <xsl:call-template name="gpm2GmdMetStandardNameVer"/>
             <xsl:call-template name="gpm2GmdDataSetURI"/>
-           
+         
           
             <!--  -->
             <xsl:if test="/GPM/Spatial_Data_Organization_Information/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type">
@@ -72,7 +75,8 @@
             <xsl:call-template name="gpm2GmdReferenceSystemInfo"/>
             <xsl:call-template name="gpm2GmdIdentificationInfo"/>
             <xsl:call-template name="gpm2GmdContentInfo"/> 
-            <xsl:call-template name="gpm2GmdDistributionInfo"/>
+            <xsl:call-template name="gpm2GmdDistributionInfo"/> 
+             <xsl:call-template name="gpm2GmdDataQualityInfo"/>
         </xsl:element>
     </xsl:template>
 </xsl:stylesheet>

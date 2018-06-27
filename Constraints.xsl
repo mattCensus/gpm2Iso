@@ -25,20 +25,23 @@
             
             <xsl:element name="gmd:MD_LegalConstraints">
                 
+                <xsl:for-each select="/GPM/Identification_Information/Constraints/Access_Constraints">
                 <xsl:element name="gmd:accessConstraints">
                     <xsl:element name="gmd:MD_RestrictionCode">
                         <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode</xsl:attribute>
-                        <xsl:attribute name="codeListValue"><xsl:value-of select="/GPM/Identification_Information[1]/Constraints[1]/Access_Contraints[1]"/></xsl:attribute>
+                        <xsl:attribute name="codeListValue"><xsl:value-of select="."/></xsl:attribute>
                     </xsl:element>
                 </xsl:element>
+                </xsl:for-each>
                 <!--  -->
-                
+                <xsl:for-each select="/GPM/Identification_Information/Constraints/Use_Constraints">
                 <xsl:element name="gmd:useConstraints">
                     <xsl:element name="gmd:MD_RestrictionCode">
                         <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode</xsl:attribute>
-                        <xsl:attribute name="codeListValue"><xsl:value-of select="/GPM/Identification_Information[1]/Constraints[1]/Use_Constraints[1]"/></xsl:attribute>
+                        <xsl:attribute name="codeListValue"><xsl:value-of select="."/></xsl:attribute>
                     </xsl:element>
                 </xsl:element>
+                </xsl:for-each>
                 
                 <xsl:for-each select="/GPM/Identification_Information[1]/Constraints[1]/Other_Constraints[1]">
                     <xsl:element name="gmd:otherConstraints">
