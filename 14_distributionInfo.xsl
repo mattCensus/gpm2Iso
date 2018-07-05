@@ -12,6 +12,8 @@
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
     exclude-result-prefixes="fn grp vmf xs xsi xsl xd" xmlns="http://www.isotc211.org/2005/gmi">
     <xsl:import href="../gpm2iso/06_contact.xsl"/>
+    <xsl:import href="../gpm2iso/NGDAWebServices.xsl"/>
+    <xsl:import href="../gpm2iso/RESTServices.xsl"/>
     
     <xd:doc scope="stylesheet">
         <xd:desc>
@@ -68,6 +70,7 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>    
+                <xsl:comment>In the for each!!!!!!!!!!!!!!!!</xsl:comment>
                 <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form/Network_Address">
                     <xsl:element name="gmd:transferOptions">
                         <xsl:element name="gmd:MD_DigitalTransferOptions">
@@ -92,6 +95,16 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:for-each>
+                <xsl:comment>outside the for each loop!!!!!!!!!!!!!!!!</xsl:comment>
+                
+                <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]/GETMAP_URL[1]">
+                <xsl:call-template name="WMSNGDA"/>
+                </xsl:if>
+                
+                <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]/REST_URL[1]">
+                    <xsl:call-template name="RestNGDA"/>
+                </xsl:if>
+                
         </xsl:element>
         </xsl:element>
     </xsl:template>
