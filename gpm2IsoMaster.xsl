@@ -76,7 +76,9 @@
             <xsl:call-template name="gpm2GmdIdentificationInfo"/>
             <xsl:call-template name="gpm2GmdContentInfo"/> 
             <xsl:call-template name="gpm2GmdDistributionInfo"/> 
+            <xsl:if test="/GPM/Data_Quality_Information[1]">
              <xsl:call-template name="gpm2GmdDataQualityInfo"/>
+            </xsl:if>
         </xsl:element>
     </xsl:template>
 </xsl:stylesheet>

@@ -183,11 +183,54 @@ exclude-result-prefixes="fn grp vmf xs xsi xsl xd" xmlns="http://www.isotc211.or
                                     <xsl:element name="gco:CharacterString">This Rest Service contains the 2010 Census Tracts</xsl:element>
                                 </xsl:element>
                             </xsl:when>
-                            
+                            <xsl:when test="contains($theme,'Current County Subdivision')">
+                                <xsl:call-template name="Places_CouSub_ConCity_SubMCDRestService"/>
+                                <xsl:element name="gmd:description">
+                                    <xsl:element name="gco:CharacterString">This Rest Service contains the County Sudivisions</xsl:element>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:when test="contains($theme,'Current Place')">
+                                <xsl:call-template name="Places_CouSub_ConCity_SubMCDRestService"/>
+                                <xsl:element name="gmd:description">
+                                    <xsl:element name="gco:CharacterString">This Rest Service contains the places</xsl:element>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:when test="contains($theme,'State Legislative District (SLD) Lower Chamber')">
+                                <xsl:call-template name="LegislativeRestPoint"/>
+                                <xsl:element name="gmd:description">
+                                    <xsl:element name="gco:CharacterString">This Rest Service contains the state legislative districts - lower chamber layer</xsl:element>
+                                </xsl:element>
+                            </xsl:when>    
+                            <xsl:when test="contains($theme,'Current State Legislative District (SLD) Upper Chamber')">
+                                <xsl:call-template name="LegislativeRestPoint"/>
+                                <xsl:element name="gmd:description">
+                                    <xsl:element name="gco:CharacterString">This Rest Service contains the state legislative districts - Upper chamber layer</xsl:element>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:when test="contains($theme,'Current Unified School Districts')">
+                                <xsl:call-template name="SchoolRestPoint"/>
+                                <xsl:element name="gmd:description">
+                                    <xsl:element name="gco:CharacterString">This Rest Service contains the state Unified School Districts layer</xsl:element>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:when test="contains($theme,'Current Subbarrio')">
+                                <xsl:call-template name="Places_CouSub_ConCity_SubMCDRestService"/>
+                                <xsl:element name="gmd:description">
+                                    <xsl:element name="gco:CharacterString">This Rest Service contains the subbarrios layer</xsl:element>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:when test="contains($theme,'Current Estate')">
+                                <xsl:call-template name="Places_CouSub_ConCity_SubMCDRestService"/>
+                                <xsl:element name="gmd:description">
+                                    <xsl:element name="gco:CharacterString">Feature Catalog for the 2015 Estates County-based Shapefile</xsl:element>
+                                </xsl:element>
+                            </xsl:when>
                             <xsl:when test="contains($theme,'All Roads')">
                                 <xsl:call-template name="PhysicalFeaturesRest"/>
                             </xsl:when>    
-                            
+                            <xsl:when test="contains($theme,'Primary Roads')">
+                                <xsl:call-template name="PhysicalFeaturesRest"/>
+                            </xsl:when>
                             
                         </xsl:choose>
                             <xsl:call-template name="downloadFunction"/>

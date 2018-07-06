@@ -45,14 +45,18 @@
                                 <xsl:element name="gco:CharacterString">NGDA Portfolio Themes</xsl:element>
                             </xsl:element>
                             <xsl:element name="gmd:date">
-                                <!--  <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>-->2010-02-01
-                            </xsl:element>
+                                <xsl:element name="gmd:CI_Date">
+                                <!--  <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>-->
+                                <xsl:element name="gmd:date">
+                                    <xsl:element name="gco:Date">2010-02-01</xsl:element>
+                                </xsl:element>
                             <xsl:element name="gmd:dateType">
                                 <xsl:element name="gmd:CI_DateTypeCode">
                                     <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode</xsl:attribute>
                                     <xsl:attribute name="codeListValue">revision</xsl:attribute>revision
                                 </xsl:element>
                             </xsl:element>
+                            </xsl:element></xsl:element>
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>
