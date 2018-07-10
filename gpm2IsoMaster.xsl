@@ -27,6 +27,7 @@
     <xsl:import href="../gpm2iso/13_contentInfo.xsl"/>
     <xsl:import href="../gpm2iso/14_distributionInfo.xsl"/>
     <xsl:import href="../gpm2iso/15_dataQualityInfo.xsl"/>
+    <xsl:import href="../gpm2iso/16_metadataMaintenance.xsl"/>
     
     <xd:doc scope="stylesheet">
         <xd:desc>
@@ -66,19 +67,22 @@
             <xsl:call-template name="gpm2GmdMetDate"/>
             <xsl:call-template name="gpm2GmdMetStandardNameVer"/>
             <xsl:call-template name="gpm2GmdDataSetURI"/>
-         
+            
           
-            <!--  -->
+            <!-- /GPM/Entity_and_Attribute_Information[1] -->
             <xsl:if test="/GPM/Spatial_Data_Organization_Information/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type">
                 <xsl:call-template name="gpm2GmdSpatialRepresentationInfo"/>
             </xsl:if>
             <xsl:call-template name="gpm2GmdReferenceSystemInfo"/>
             <xsl:call-template name="gpm2GmdIdentificationInfo"/>
-            <xsl:call-template name="gpm2GmdContentInfo"/> 
+            <xsl:if test="/GPM/Entity_and_Attribute_Information[1]">
+                <xsl:call-template name="gpm2GmdContentInfo"/>
+            </xsl:if>
             <xsl:call-template name="gpm2GmdDistributionInfo"/> 
             <xsl:if test="/GPM/Data_Quality_Information[1]">
              <xsl:call-template name="gpm2GmdDataQualityInfo"/>
             </xsl:if>
+            <xsl:call-template name="metadataMaintenance"/>
         </xsl:element>
     </xsl:template>
 </xsl:stylesheet>

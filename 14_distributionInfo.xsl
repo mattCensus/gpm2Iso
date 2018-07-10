@@ -70,7 +70,7 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>    
-                <xsl:comment>In the for each!!!!!!!!!!!!!!!!</xsl:comment>
+             <!--   <xsl:comment>In the for each!!!!!!!!!!!!!!!!</xsl:comment> --> 
                 <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form/Network_Address">
                     <xsl:element name="gmd:transferOptions">
                         <xsl:element name="gmd:MD_DigitalTransferOptions">
@@ -95,7 +95,7 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:for-each>
-                <xsl:comment>outside the for each loop!!!!!!!!!!!!!!!!</xsl:comment>
+              <!--  <xsl:comment>outside the for each loop!!!!!!!!!!!!!!!!</xsl:comment> --> 
                 
                 <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]/GETMAP_URL[1]">
                 <xsl:call-template name="WMSNGDA"/>
