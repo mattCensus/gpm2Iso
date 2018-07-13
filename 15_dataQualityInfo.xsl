@@ -11,6 +11,7 @@
     xmlns:grp="http://www.altova.com/Mapforce/grouping"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
     exclude-result-prefixes="fn grp vmf xs xsi xsl xd" xmlns="http://www.isotc211.org/2005/gmi">
+    <xsl:import href="../gpm2iso/SourceInformation.xsl"/>
     <xd:doc scope="stylesheet">
         <xd:desc>
             <xd:p>gpm2iso/15_dataQualityInfo.xsl</xd:p>
@@ -153,7 +154,7 @@
                     </xsl:element>
                 </xsl:if>
                 
-                <xsl:element name="gmd:report">
+               <!--   <xsl:element name="gmd:report">
                     <xsl:element name="gmd:DQ_CompletenessOmission">
                         
                         <xsl:if test="/GPM/Data_Quality_Information[1]/Completeness_Report[1]/Test_Report[1]/Measure[1]">
@@ -189,7 +190,7 @@
                         
                         
                     </xsl:element>
-                </xsl:element>
+                </xsl:element>-->
                 
                 <!-- gmd:evaluationMethodDescription -->
                 <xsl:element name="gmd:report">
@@ -234,6 +235,8 @@
                         
                     </xsl:element>
                 </xsl:element>
+                
+               <xsl:call-template name="SourceInformation"/>
             </xsl:element>
         </xsl:element>
         

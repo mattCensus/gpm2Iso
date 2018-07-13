@@ -11,6 +11,8 @@
     xmlns:grp="http://www.altova.com/Mapforce/grouping"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
     exclude-result-prefixes="fn grp vmf xs xsi xsl xd" xmlns="http://www.isotc211.org/2005/gmi">
+    
+   
     <xd:doc scope="stylesheet">
         <xd:desc>
             <xd:p>../gpm2iso/SourceInformation.xsl</xd:p>
@@ -35,29 +37,39 @@
          <xsl:for-each select="/GPM/Data_Quality_Information[1]/Source_Information">
              <xsl:element name="gmd:LI_Source">
                  <xsl:element name="gmd:description">
-                     <xsl:element name="gco:CharacterString"><xsl:value-of select="./Source_Contribution[1]"></xsl:value-of></xsl:element>
+                     <xsl:element name="gco:CharacterString"><xsl:value-of select="../Source_Contribution"/></xsl:element>
                  </xsl:element>
                  
                  <xsl:element name="gmd:sourceCitation">
                      <xsl:element name="gmd:CI_Citation">
                          
                          <xsl:element name="gmd:title">
-                             <xsl:value-of select="./Source_Information/Citation/Title"></xsl:value-of>
+                             <xsl:value-of select="../Source_Information/Citation/Title"></xsl:value-of>
                          </xsl:element>
                          
-                         <xsl:if test="./Source_Information/Source_Citation_Abbreviation">
+                         <xsl:if test="../Source_Citation_Abbreviation">
                              <xsl:element name="gmd:alternateTitle">
                                  <xsl:element name="gco:CharacterString">
-                                     <xsl:value-of select="./Source_Information/Source_Citation_Abbreviation"/>
+                                     <xsl:value-of select="../Source_Citation_Abbreviation"/>
                                  </xsl:element>
                              </xsl:element>
                          </xsl:if>
                          
                          <xsl:element name="gmd:date">
                              <xsl:element name="gmd:CI_Date">
-                                 
+                                 <xsl:element name="gmd:date">
+                                     <xsl:element name="gco:Date"> <xsl:value-of select="../Citation/Publication_Date"/> </xsl:element>
+                                 </xsl:element>
+                                 <xsl:element name="gmd:dateType">
+                                     <xsl:element name="gmd:CI_DateTypeCode">
+                                         <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode</xsl:attribute>
+                                         <xsl:attribute name="codeListValue"><xsl:value-of select="../Time_Period_of_Content/Currentness_Reference"/></xsl:attribute><xsl:value-of select="../Time_Period_of_Content/Currentness_Reference"/>
+                                     </xsl:element>
+                                 </xsl:element>
                              </xsl:element>
                          </xsl:element>
+                         
+                         
                          
                          </xsl:element>
                          
