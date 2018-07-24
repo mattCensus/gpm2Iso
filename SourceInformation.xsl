@@ -23,18 +23,22 @@
     </xd:doc>
     
     <xsl:template name="SourceInformation">
+         <xsl:element name="gmd:lineage">
+             <xsl:element name="gmd:LI_Lineage">
     <xsl:for-each select="/GPM/Data_Quality_Information[1]/Process_Step">
-        
+       
         <xsl:element name="gmd:processStep">
-            <xsl:element name="LI_ProcessStep">
+            <xsl:element name="gmd:LI_ProcessStep">
                 <xsl:element name="gmd:description">
-                    <xsl:element name="gco:characterString"><xsl:value-of select="."/></xsl:element>
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="."/></xsl:element>
                 </xsl:element>
             </xsl:element>
         </xsl:element>
+       
     </xsl:for-each>
-        
+         
          <xsl:for-each select="/GPM/Data_Quality_Information[1]/Source_Information">
+             <xsl:element name="gmd:source">
              <xsl:element name="gmd:LI_Source">
                  <xsl:element name="gmd:description">
                      <xsl:element name="gco:CharacterString"><xsl:value-of select="../Source_Contribution"/></xsl:element>
@@ -44,7 +48,9 @@
                      <xsl:element name="gmd:CI_Citation">
                          
                          <xsl:element name="gmd:title">
-                             <xsl:value-of select="../Source_Information/Citation/Title"></xsl:value-of>
+                             <xsl:element name="gco:CharacterString">
+                                 <xsl:value-of select="../Source_Information/Citation/Title"/>
+                             </xsl:element>
                          </xsl:element>
                          
                          <xsl:if test="../Source_Citation_Abbreviation">
@@ -57,8 +63,18 @@
                          
                          <xsl:element name="gmd:date">
                              <xsl:element name="gmd:CI_Date">
+                                    <xsl:variable name="DateType" select="./Citation/Publication_Date"/>
                                  <xsl:element name="gmd:date">
-                                     <xsl:element name="gco:Date"> <xsl:value-of select="../Citation/Publication_Date"/> </xsl:element>
+                                  
+                                     <xsl:choose>
+                                         <xsl:when test="contains($DateType,'unknown')">
+                                             <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
+                                         </xsl:when>
+                                         <xsl:otherwise>
+                                              <xsl:element name="gco:Date"> <xsl:value-of select="./Citation/Publication_Date"/> </xsl:element>
+                                         </xsl:otherwise>
+                                     </xsl:choose>
+                                    
                                  </xsl:element>
                                  <xsl:element name="gmd:dateType">
                                      <xsl:element name="gmd:CI_DateTypeCode">
@@ -75,11 +91,11 @@
                          
                      </xsl:element>
                  </xsl:element>
-                 
+                 </xsl:element>
             
          </xsl:for-each>
-        
-    
+        </xsl:element>
+    </xsl:element>
     </xsl:template>
     
 </xsl:stylesheet>
