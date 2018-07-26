@@ -12,6 +12,8 @@
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
     exclude-result-prefixes="fn grp vmf xs xsi xsl xd" xmlns="http://www.isotc211.org/2005/gmi">
     <xsl:import href="../gpm2iso/SourceInformation.xsl"/>
+    <xsl:import href="../gpm2iso/SourceTime.xsl"/>
+    
     <xd:doc scope="stylesheet">
         <xd:desc>
             <xd:p>gpm2iso/15_dataQualityInfo.xsl</xd:p>

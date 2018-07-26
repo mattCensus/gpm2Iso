@@ -41,7 +41,7 @@
              <xsl:element name="gmd:source">
              <xsl:element name="gmd:LI_Source">
                  <xsl:element name="gmd:description">
-                     <xsl:element name="gco:CharacterString"><xsl:value-of select="../Source_Contribution"/></xsl:element>
+                     <xsl:element name="gco:CharacterString"><xsl:value-of select="./Source_Contribution"/></xsl:element>
                  </xsl:element>
                  
                  <xsl:element name="gmd:sourceCitation">
@@ -49,14 +49,14 @@
                          
                          <xsl:element name="gmd:title">
                              <xsl:element name="gco:CharacterString">
-                                 <xsl:value-of select="../Source_Information/Citation/Title"/>
+                                 <xsl:value-of select="./Citation/Title"/>
                              </xsl:element>
                          </xsl:element>
                          
-                         <xsl:if test="../Source_Citation_Abbreviation">
+                         <xsl:if test="./Source_Citation_Abbreviation">
                              <xsl:element name="gmd:alternateTitle">
                                  <xsl:element name="gco:CharacterString">
-                                     <xsl:value-of select="../Source_Citation_Abbreviation"/>
+                                     <xsl:value-of select="./Source_Citation_Abbreviation"/>
                                  </xsl:element>
                              </xsl:element>
                          </xsl:if>
@@ -66,20 +66,25 @@
                                     <xsl:variable name="DateType" select="./Citation/Publication_Date"/>
                                  <xsl:element name="gmd:date">
                                   
-                                     <xsl:choose>
+                                      <xsl:choose>
                                          <xsl:when test="contains($DateType,'unknown')">
                                              <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
                                          </xsl:when>
-                                         <xsl:otherwise>
-                                              <xsl:element name="gco:Date"> <xsl:value-of select="./Citation/Publication_Date"/> </xsl:element>
-                                         </xsl:otherwise>
+                                       <!--   <xsl:otherwise>
+                                             <xsl:element name="gco:Date"> <xsl:value-of select="./Citation/Publication_Date"/> </xsl:element>
+                                         </xsl:otherwise>-->
+                                          <xsl:otherwise>
+                                              <xsl:element name="gco:Date">publication date</xsl:element>
+                                          </xsl:otherwise>
                                      </xsl:choose>
+                                     
+                                     
                                     
                                  </xsl:element>
                                  <xsl:element name="gmd:dateType">
                                      <xsl:element name="gmd:CI_DateTypeCode">
                                          <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode</xsl:attribute>
-                                         <xsl:attribute name="codeListValue"><xsl:value-of select="../Time_Period_of_Content/Currentness_Reference"/></xsl:attribute><xsl:value-of select="../Time_Period_of_Content/Currentness_Reference"/>
+                                         <xsl:attribute name="codeListValue"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:attribute><xsl:value-of select="../Time_Period_of_Content/Currentness_Reference"/>
                                      </xsl:element>
                                  </xsl:element>
                              </xsl:element>
