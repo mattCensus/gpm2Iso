@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<xsl:choose>
+    
+    
+    <xsl:when test="contains($BegDate,'unknown')">
+    
+    
+    
+    <xsl:element name="gml:TimeInstant">
+    
+    <xsl:choose>
+    <xsl:when test="contains($TimePeriodNameA,'NHD')">
+    <xsl:variable name="TimperiodB" select="substring($TimePeriodNameA,4)"/>
+    <xsl:variable name="TimperiodC" select="concat('NHD', $TimperiodB)"/>
+    <xsl:variable name="TimePeriodD" select="translate($TimperiodC,' ','')"></xsl:variable>
+    <xsl:attribute name="gml:id"><xsl:value-of select="$TimePeriodD"/></xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($TimePeriodNameA,'MAF')">
+    <xsl:attribute name="gml:id">CensusMafTiger</xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($TimePeriodNameA,'ADCAN')">
+    <xsl:attribute name="gml:id">CensusADCAN</xsl:attribute>
+    </xsl:when>
+    <xsl:when test="./Source_Citation_Abbreviation">
+    <xsl:variable name="AppCheck" select="./Source_Citation_Abbreviation"/>
+    <xsl:comment>AppCheck:<xsl:value-of select="$AppCheck"/></xsl:comment>
+    <xsl:choose>
+    <xsl:when test="contains($AppCheck,'.')">
+    <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'.')"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($AppCheck,'_')">
+    <xsl:variable name="TimperiodB" select="translate($TimePeriodNameA,'_','')"/>
+    
+    <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($AppCheck,' ')">
+    <xsl:comment>In the space!!!!!!!!</xsl:comment>
+    <xsl:variable name="TimperiodB" select="translate($TimePeriodNameA,' ','')"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="$TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    <xsl:otherwise>
+    <xsl:attribute name="gml:id"><xsl:value-of select="./Source_Citation_Abbreviation"/></xsl:attribute>
+    </xsl:otherwise>
+    </xsl:choose>
+    
+    </xsl:when>
+    <xsl:when test="./Citation/Title">
+    <xsl:variable name="TitleCheck" select="./Citation/Title"/>
+    <xsl:comment>TitleCheck:<xsl:value-of select="$TitleCheck"></xsl:value-of></xsl:comment>
+    <xsl:choose>
+    <xsl:when test="contains($TitleCheck,'.')">
+    <xsl:variable name="TimperiodB" select="substring-before($TitleCheck,'.')"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($TitleCheck,'_')">
+    <xsl:variable name="TimperiodB" select="translate($TimePeriodNameA,'_','')"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    </xsl:choose>
+    </xsl:when>
+    </xsl:choose>
+    
+    <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+    <xsl:element name="gml:timePosition">
+    <xsl:attribute name="indeterminatePosition">unknown</xsl:attribute>
+    </xsl:element>
+    </xsl:element>
+    </xsl:when>
+    <xsl:when test="./Time_Period_of_Content/Calendar_Date">
+    <xsl:element name="gml:TimeInstant">
+    
+    <xsl:choose>
+    <xsl:when test="contains($TimePeriodNameA,'NHD')">
+    <xsl:variable name="TimperiodB" select="substring($TimePeriodNameA,4)"/>
+    <xsl:variable name="TimperiodC" select="concat('NHD', $TimperiodB)"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="$TimperiodC"/></xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($TimePeriodNameA,'MAF')">
+    <xsl:attribute name="gml:id">CensusMafTiger</xsl:attribute>
+    </xsl:when>
+    <xsl:when test="./Source_Citation_Abbreviation">
+    <xsl:variable name="AppCheck" select="./Source_Citation_Abbreviation"/>
+    <xsl:comment>AppCheck:<xsl:value-of select="$AppCheck"/></xsl:comment>
+    <xsl:choose>
+    <xsl:when test="contains($AppCheck,'.')">
+    <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'.')"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($AppCheck,'_')">
+    <xsl:comment>in the underscore</xsl:comment>
+    <xsl:variable name="TimperiodB" select="translate($TimePeriodNameA,'_','')"/>
+    <xsl:comment>TimperiodB:<xsl:value-of select="$TimperiodB"/></xsl:comment>
+    <xsl:attribute name="gml:id"><xsl:value-of select="$TimperiodB"/></xsl:attribute>
+    </xsl:when> 
+    <xsl:when test="contains($AppCheck,' ')">
+    <xsl:comment>In the space!!!!!!!!</xsl:comment>
+    <xsl:variable name="TimperiodB" select="translate($TimePeriodNameA,' ','')"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="$TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    <xsl:otherwise>
+    <xsl:attribute name="gml:id"><xsl:value-of select="./Source_Citation_Abbreviation"/></xsl:attribute>
+    </xsl:otherwise>
+    
+    </xsl:choose>
+    
+    </xsl:when>
+    <xsl:when test="./Citation/Title">
+    <xsl:variable name="TitleCheck" select="./Citation/Title"/>
+    <xsl:choose>
+    <xsl:when test="contains($TitleCheck,'.')">
+    <xsl:variable name="TimperiodB" select="substring-before($TitleCheck,'.')"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($TitleCheck,'_')">
+    <xsl:variable name="TimperiodB" select="translate($TimePeriodNameA,'_','')"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+    </xsl:when>
+    </xsl:choose>
+    </xsl:when>
+    </xsl:choose>
+    
+    <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+    <xsl:element name="gml:timePosition"><xsl:value-of select="./Time_Period_of_Content[1]/Calendar_Date[1]"/></xsl:element>
+    </xsl:element>
+    
+    
+    </xsl:when>
+    <xsl:otherwise>
+    <xsl:element name="gml:TimePeriod">
+    <xsl:choose>
+    <xsl:when test="contains($TimePeriodNameA,'NHD')">
+    <xsl:variable name="TimperiodB" select="substring($TimePeriodNameA,4)"/>
+    <xsl:variable name="TimperiodC" select="concat('NHD', $TimperiodB)"/>
+    <xsl:attribute name="gml:id"><xsl:value-of select="$TimperiodC"/></xsl:attribute>
+    </xsl:when>
+    <xsl:when test="contains($TimePeriodNameA,'MAF')">
+    <xsl:attribute name="gml:id">CensusMafTiger</xsl:attribute>
+    </xsl:when>
+    <xsl:when test="./Source_Citation_Abbreviation">
+    <xsl:attribute name="gml:id"><xsl:value-of select="./Source_Citation_Abbreviation"/></xsl:attribute>
+    </xsl:when>
+    </xsl:choose>
+    
+    <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+    <xsl:element name="gml:beginPosition"><xsl:value-of select="./Time_Period_of_Content/Range_Of_Dates/Beginning_Date"/></xsl:element>
+    <xsl:element name="gml:endPosition"><xsl:value-of select="./Time_Period_of_Content[1]/Range_Of_Dates[1]/Ending_Date[1]"/></xsl:element>
+    </xsl:element>
+    </xsl:otherwise>
+    </xsl:choose>-->

@@ -21,4 +21,20 @@
             <xd:p></xd:p>
         </xd:desc>
     </xd:doc>
+    
+    <xsl:template name="SourceTime">
+        <xsl:element name="gmd:sourceExtent">
+            <xsl:element name="gmd:EX_Extent">
+                <xsl:element name="gmd:temporalElement">
+                    <xsl:element name="gmd:EX_TemporalExtent">
+                        <xsl:element name="gmd:extent">
+                            <xsl:element name="gml:TimePeriod">
+                                <xsl:element name="gml:description"></xsl:element>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
 </xsl:stylesheet>

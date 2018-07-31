@@ -74,7 +74,7 @@
                                              <xsl:element name="gco:Date"> <xsl:value-of select="./Citation/Publication_Date"/> </xsl:element>
                                          </xsl:otherwise>-->
                                           <xsl:otherwise>
-                                              <xsl:element name="gco:Date">publication date</xsl:element>
+                                              <xsl:element name="gco:Date"><xsl:value-of select="./Citation/Publication_Date"/></xsl:element>
                                           </xsl:otherwise>
                                      </xsl:choose>
                                      
@@ -84,7 +84,7 @@
                                  <xsl:element name="gmd:dateType">
                                      <xsl:element name="gmd:CI_DateTypeCode">
                                          <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode</xsl:attribute>
-                                         <xsl:attribute name="codeListValue"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:attribute><xsl:value-of select="../Time_Period_of_Content/Currentness_Reference"/>
+                                         <xsl:attribute name="codeListValue">publication date</xsl:attribute>publication date
                                      </xsl:element>
                                  </xsl:element>
                              </xsl:element>
@@ -94,9 +94,143 @@
                          
                          </xsl:element>
                          
-                     </xsl:element>
                  </xsl:element>
-                 </xsl:element>
+               
+                    <xsl:element name="gmd:sourceExtent">
+                         <xsl:element name="gmd:EX_Extent">
+                             <xsl:element name="gmd:temporalElement">
+                                 <xsl:element name="gmd:EX_TemporalExtent">
+                                     <xsl:element name="gmd:extent">
+                                        
+                                             <xsl:variable name="BegDate" select="./Time_Period_of_Content/Range_Of_Dates/Beginning_Date"/>
+                                         <xsl:variable name="TimePeriodNameA" select="./Source_Citation_Abbreviation"/>
+                                         
+                                     
+                                     
+                                     
+                                        
+                                         
+                                         <!-- choose for the gml:id  -->
+                                         <xsl:choose>
+                                             
+                                             <!-- unknown date -->
+                                             <xsl:when test="contains($BegDate,'unknown')">
+                                                 <xsl:comment>In the unknown!!!!!!!!</xsl:comment>
+                                                 <xsl:comment>TimePeriodNameA: <xsl:value-of select="$TimePeriodNameA"/></xsl:comment>
+                                                 <xsl:choose>
+                                                     <xsl:when test="contains($TimePeriodNameA,'NHD')">
+                                                         <xsl:element name="gml:TimeInstant">
+                                                             
+                                                             
+                                                              <!-- <xsl:attribute name="gml:id">NHD</xsl:attribute>
+                                                                    <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+                                                             <xsl:element name="gml:timePosition">
+                                                                 <xsl:attribute name="indeterminatePosition">unknown</xsl:attribute>
+                                                             </xsl:element>
+                                                              
+                                                              -->
+                                                                  <xsl:comment>In the NHD (unknown)</xsl:comment>
+                                                             <xsl:variable name="TimperiodB" select="substring($TimePeriodNameA,4)"/>
+                                                             <xsl:variable name="TimperiodC" select="concat('NHD', $TimperiodB)"/>
+                                                             <xsl:variable name="TimePeriodD" select="translate($TimperiodC,' ','')"></xsl:variable>
+                                                             <xsl:comment>TimePeriodD: <xsl:value-of select="$TimePeriodD"/></xsl:comment>
+                                                             
+                                                             
+                                                           
+                                                              <xsl:attribute name="gml:id"><xsl:value-of select="$TimePeriodD"/></xsl:attribute>
+                                                            
+                                                         </xsl:element>
+                                                     </xsl:when>
+                                                     <xsl:when test="contains($TimePeriodNameA,'MAF')">
+                                                         <xsl:element name="gml:TimeInstant">
+                                                             <xsl:attribute name="gml:id">CensusMafTiger</xsl:attribute>
+                                                             <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+                                                             <xsl:element name="gml:timePosition">
+                                                                 <xsl:attribute name="indeterminatePosition">unknown</xsl:attribute>
+                                                             </xsl:element>
+                                                         </xsl:element>
+                                                     </xsl:when>
+                                                     <xsl:when test="contains($TimePeriodNameA,'ADCAN')">
+                                                         <xsl:element name="gml:TimeInstant">
+                                                             <xsl:attribute name="gml:id">CensusADCAN</xsl:attribute>
+                                                             <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+                                                             <xsl:element name="gml:timePosition">
+                                                             <xsl:attribute name="indeterminatePosition">unknown</xsl:attribute>
+                                                             </xsl:element>
+                                                         </xsl:element>
+                                                     </xsl:when>
+                                                     
+                                                   
+                                                 </xsl:choose>
+                                             </xsl:when>
+                                             
+                                             <xsl:when test="./Source_Citation_Abbreviation">  
+                                                 <xsl:comment>in the  source citation</xsl:comment>
+                                                 <xsl:variable name="AppCheck" select="./Source_Citation_Abbreviation"/>
+                                                 <xsl:choose>
+                                                     
+                                                     <xsl:when test="contains($AppCheck,'NHD')">
+                                                         <xsl:comment>In the NHD (source)</xsl:comment>
+                                                         <xsl:variable name="TimperiodB" select="substring($TimePeriodNameA,4)"/>
+                                                         <xsl:variable name="TimperiodC" select="concat('NHD', $TimperiodB)"/>
+                                                         <xsl:variable name="TimePeriodD" select="translate($TimperiodC,' ','')"></xsl:variable>
+                                                         <xsl:comment>TimePeriodD: <xsl:value-of select="$TimePeriodD"/></xsl:comment>
+                                                         <xsl:attribute name="gml:id"><xsl:value-of select="$TimePeriodD"/></xsl:attribute>
+                                                         
+                                                         <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+                                                         <xsl:element name="gml:timePosition">
+                                                             <xsl:attribute name="indeterminatePosition">unknown</xsl:attribute>
+                                                         </xsl:element>
+                                                     </xsl:when>
+                                                     <xsl:when test="contains($AppCheck,'MAF')">
+                                                         <xsl:element name="gml:TimePeriod">
+                                                         <xsl:attribute name="gml:id">CensusMafTiger</xsl:attribute>
+                                                         <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+                                                         <xsl:element name="gml:beginPosition">
+                                                             <xsl:value-of select="./Time_Period_of_Content/Range_Of_Dates/Beginning_Date"/>
+                                                         </xsl:element>
+                                                         <xsl:element name="gml:endPosition">
+                                                             <xsl:value-of select="./Time_Period_of_Content[1]/Range_Of_Dates[1]/Ending_Date[1]"/>
+                                                         </xsl:element>
+                                                         </xsl:element>
+                                                     </xsl:when>
+                                                     <xsl:when test="contains($AppCheck,'ADCAN')">
+                                                         <xsl:attribute name="gml:id">CensusADCAN</xsl:attribute>
+                                                         <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+                                                         <xsl:element name="gml:timePosition">
+                                                             <xsl:attribute name="indeterminatePosition">unknown</xsl:attribute>
+                                                         </xsl:element>
+                                                     </xsl:when>
+                                                     <xsl:when test="contains($AppCheck,'.')">
+                                                         <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'.')"/>
+                                                         <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+                                                     </xsl:when>
+                                                     <xsl:when test="contains($AppCheck,'_')">
+                                                         <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'_')"/>
+                                                         <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+                                                     </xsl:when>
+                                                     <xsl:otherwise>
+                                                         <xsl:attribute name="gml:id"><xsl:value-of select="$AppCheck"></xsl:value-of></xsl:attribute>
+                                                         
+                                                     </xsl:otherwise>
+                                                 </xsl:choose>
+                                             </xsl:when> 
+                                             <xsl:when test="./Citation/Title">
+                                                 <xsl:comment>in the unknow title citation</xsl:comment>
+                                                 
+                                             </xsl:when>
+                                         </xsl:choose>
+                                             
+                                            
+                                         </xsl:element>
+                                         </xsl:element>
+                                     </xsl:element>
+                                 </xsl:element>
+                             </xsl:element>
+                         </xsl:element>
+                     </xsl:element> 
+                 
+              
             
          </xsl:for-each>
         </xsl:element>
