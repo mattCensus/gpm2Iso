@@ -28,6 +28,7 @@
     <xsl:import href="../gpm2iso/14_distributionInfo.xsl"/>
     <xsl:import href="../gpm2iso/15_dataQualityInfo.xsl"/>
     <xsl:import href="../gpm2iso/16_metadataMaintenance.xsl"/>
+    <xsl:import href="../gpm2iso/12A_GPMServices.xsl"/>
     
     <xd:doc scope="stylesheet">
         <xd:desc>
@@ -56,6 +57,8 @@
             <xsl:copy-of select="document('')/*/namespace::*[name()='xsi']"/>
             <!-- inserts the xmlns="http://www.isotc211.org/2005/gmi namespace -->
             <xsl:copy-of select="document('')/*/namespace::*[name()='gmi']"/>
+            <!-- inserts the srv namespace -->
+            <xsl:copy-of select="document('')/*/namespace::*[name()='srv']"/>
             
             <xsl:attribute name="xsi:schemaLocation">http://www.isotc211.org/2005/gmi http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd</xsl:attribute>
             <xsl:call-template name="gpm2GmdfileIdentifier"/>
@@ -63,7 +66,11 @@
             <xsl:call-template name="gpm2GmdMetadataCharacterSet"/>
             <xsl:call-template name="gpm2GmdparentIdentifier"/>
             <xsl:call-template name="gpm2GmdHierarchyLevel"/>
+            
+           
             <xsl:call-template name="gpm2GmdMetContact"/>
+            
+            
             <xsl:call-template name="gpm2GmdMetDate"/>
             <xsl:call-template name="gpm2GmdMetStandardNameVer"/>
             <xsl:call-template name="gpm2GmdDataSetURI"/>
@@ -74,7 +81,18 @@
                 <xsl:call-template name="gpm2GmdSpatialRepresentationInfo"/>
             </xsl:if>
             <xsl:call-template name="gpm2GmdReferenceSystemInfo"/>
-            <xsl:call-template name="gpm2GmdIdentificationInfo"/>
+            
+            <xsl:choose>
+                <xsl:when test="/GPM/Computer_Service_Information[1]">
+                    <xsl:call-template name="GPMServices"/>
+                </xsl:when>
+                <xsl:otherwise>
+                     <xsl:call-template name="gpm2GmdIdentificationInfo"/>
+                </xsl:otherwise>
+            </xsl:choose>
+           
+            
+            
             <xsl:if test="/GPM/Entity_and_Attribute_Information[1]">
                 <xsl:call-template name="gpm2GmdContentInfo"/>
             </xsl:if>
