@@ -113,7 +113,31 @@
                                 </xsl:element>
                                 
                                 <xsl:element name="gfc:cardinality">
-                                    <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
+                                    <xsl:choose>
+                                        <xsl:when test="./Attribute_Domain_Values/Range_Domain">
+                                            <xsl:for-each select="./Attribute_Domain_Values/Range_Domain">
+                                                <xsl:element name="gco:Multiplicity">
+                                                    <xsl:element name="gco:range">
+                                                        <xsl:element name="gco:MultiplicityRange">
+                                                            
+                                                            <xsl:element name="gco:lower">
+                                                                <xsl:element name="gco:Integer"><xsl:value-of select="./Range_Domain_Minimum"/></xsl:element>
+                                                            </xsl:element>
+                                                            
+                                                            <xsl:element name="gco:upper">
+                                                                <xsl:element name="gco:UnlimitedInteger"><xsl:value-of select="./Range_Domain_Maximum"/></xsl:element>
+                                                            </xsl:element>
+                                                            
+                                                        </xsl:element>
+                                                    </xsl:element>
+                                                </xsl:element>
+                                            </xsl:for-each>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                    
                                 </xsl:element>
                                 
                                 <xsl:variable name="DefRef" select="./Attribute_Definition_Source"/>
@@ -280,6 +304,8 @@
                                 </xsl:for-each>
                                 
                                 <xsl:for-each select="./Attribute_Domain_Values/Unrepresentable_Domain">
+                                    <xsl:element name="gfc:listedValue">
+                                        <xsl:element name="gfc:FC_ListedValue">
                                     <xsl:element name="gfc:label">
                                         <xsl:attribute name="gco:nilReason">inapplicable</xsl:attribute>
                                     </xsl:element>
@@ -287,7 +313,11 @@
                                     <xsl:element name="gfc:definition">
                                         <xsl:element name="gco:CharacterString"><xsl:value-of select="."/></xsl:element>
                                     </xsl:element>
+                                        </xsl:element>
+                                    </xsl:element>
                                 </xsl:for-each>
+                                
+                                
                                 
                             </xsl:element>
                         </xsl:element>

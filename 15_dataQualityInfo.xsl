@@ -156,45 +156,9 @@
                     </xsl:element>
                 </xsl:if>
                 
-               <!--   <xsl:element name="gmd:report">
-                    <xsl:element name="gmd:DQ_CompletenessOmission">
-                        
-                        <xsl:if test="/GPM/Data_Quality_Information[1]/Completeness_Report[1]/Test_Report[1]/Measure[1]">
-                            <xsl:element name="gmd:nameOfMeasure">
-                                <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Data_Quality_Information[1]/Completeness_Report[1]/Test_Report[1]/Measure[1]"/></xsl:element>
-                            </xsl:element>
-                        </xsl:if>
-                        
-                        <xsl:if test="/GPM/Data_Quality_Information[1]/Completeness_Report[1]/Test_Report[1]/Evaluation[1]">
-                            <xsl:element name="gmd:evaluationMethodDescription">
-                                <xsl:element name="gco:CharacterString">
-                                    <xsl:value-of select="/GPM/Data_Quality_Information[1]/Completeness_Report[1]/Test_Report[1]/Evaluation[1]"/>
-                                </xsl:element>
-                            </xsl:element>
-                            
-                            <xsl:element name="gmd:result">
-                                <xsl:element name="gmd:DQ_ConformanceResult">
-                                    <xsl:element name="gmd:specification">
-                                        <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
-                                    </xsl:element>
-                                    <xsl:element name="gmd:explanation">
-                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Data_Quality_Information[1]/Completeness_Report[1]/Test_Report[1]/Result[1]"/>
-                                        </xsl:element>
-                                    </xsl:element>
-                                    <xsl:element name="gmd:pass">
-                                        <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
-                                    </xsl:element>
-                                </xsl:element>
-                            </xsl:element>
-                            
-                            
-                        </xsl:if>
-                        
-                        
-                    </xsl:element>
-                </xsl:element>-->
                 
                 <!-- gmd:evaluationMethodDescription -->
+                <xsl:if test="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Measure[1]">
                 <xsl:element name="gmd:report">
                     <xsl:element name="gmd:DQ_CompletenessOmission">
                          
@@ -237,6 +201,7 @@
                         
                     </xsl:element>
                 </xsl:element>
+                </xsl:if>
                 
                <xsl:call-template name="SourceInformation"/>
             </xsl:element>
