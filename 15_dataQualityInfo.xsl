@@ -22,11 +22,11 @@
             <xd:p/>
         </xd:desc>
     </xd:doc>
-
+    
     <xsl:template name="gpm2GmdDataQualityInfo">
         <xsl:element name="gmd:dataQualityInfo">
             <xsl:element name="gmd:DQ_DataQuality">
-
+                
                 <xsl:element name="gmd:scope">
                     <xsl:element name="gmd:DQ_Scope">
                         <xsl:element name="gmd:level">
@@ -39,9 +39,9 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>
-
+                
                 <!-- /GPM/Data_Quality_Information[1]/Atribute_Accuracy_Report[1] -->
-
+                
                 <xsl:if test="/GPM/Data_Quality_Information[1]/Atribute_Accuracy_Report[1]">
                     <xsl:element name="gmd:report">
                         <xsl:element name="gmd:DQ_QuantitativeAttributeAccuracy">
@@ -80,40 +80,40 @@
                 
                 <xsl:if test="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]">
                     <xsl:element name="gmd:report">
-                            <xsl:element name="gmd:DQ_QuantitativeAttributeAccuracy">
-  
-                                <xsl:if test="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Measure[1]">
-                                    <xsl:element name="gmd:nameOfMeasure">
-                                        <xsl:element name="gco:CharacterString">
-                                            <xsl:value-of select="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Measure[1]" />
-                                        </xsl:element>
+                        <xsl:element name="gmd:DQ_QuantitativeAttributeAccuracy">
+                            
+                            <xsl:if test="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Measure[1]">
+                                <xsl:element name="gmd:nameOfMeasure">
+                                    <xsl:element name="gco:CharacterString">
+                                        <xsl:value-of select="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Measure[1]" />
                                     </xsl:element>
-                                </xsl:if>
-
-                               <xsl:if test="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Evaluation[1]">
-                                   <xsl:element name="gmd:evaluationMethodDescription">
-                                       <xsl:element name="gco:CharacterString">
-                                           <xsl:value-of select="GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Evaluation[1]"/>
-                                       </xsl:element>
-                                   </xsl:element>
-                               </xsl:if>
-                                <xsl:element name="gmd:result">
-                                    <xsl:element name="gmd:DQ_ConformanceResult">
-                                        <xsl:element name="gmd:specification">
-                                            <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
+                                </xsl:element>
+                            </xsl:if>
+                            
+                            <xsl:if test="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Evaluation[1]">
+                                <xsl:element name="gmd:evaluationMethodDescription">
+                                    <xsl:element name="gco:CharacterString">
+                                        <xsl:value-of select="GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Evaluation[1]"/>
+                                    </xsl:element>
+                                </xsl:element>
+                            </xsl:if>
+                            <xsl:element name="gmd:result">
+                                <xsl:element name="gmd:DQ_ConformanceResult">
+                                    <xsl:element name="gmd:specification">
+                                        <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
+                                    </xsl:element>
+                                    <xsl:element name="gmd:explanation">
+                                        <xsl:element name="gco:CharacterString">
+                                            <xsl:value-of select="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Result[1]"/>
                                         </xsl:element>
-                                        <xsl:element name="gmd:explanation">
-                                            <xsl:element name="gco:CharacterString">
-                                                <xsl:value-of select="/GPM/Data_Quality_Information[1]/Non_Quantitative_Attribute_Accuracy_Report[1]/Test_Report[1]/Result[1]"/>
-                                            </xsl:element>
-                                        </xsl:element> 
-                                        <xsl:element name="gmd:pass">
-                                                <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
-                                            </xsl:element>
+                                    </xsl:element> 
+                                    <xsl:element name="gmd:pass">
+                                        <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
                                     </xsl:element>
                                 </xsl:element>
                             </xsl:element>
                         </xsl:element>
+                    </xsl:element>
                 </xsl:if>
                 
                 <xsl:if test="/GPM/Data_Quality_Information[1]/Logical_Consistency_Report[1]">
@@ -159,51 +159,51 @@
                 
                 <!-- gmd:evaluationMethodDescription -->
                 <xsl:if test="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Measure[1]">
-                <xsl:element name="gmd:report">
-                    <xsl:element name="gmd:DQ_CompletenessOmission">
-                         
-                        <xsl:if test="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Measure[1]">
-                            <xsl:element name="gmd:nameOfMeasure">
-                                <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Measure[1]"/>
-                                </xsl:element>
-                                </xsl:element>
-                        </xsl:if>
-                        
-                        <xsl:if test="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Evaluation[1]">
-                            <xsl:element name="gmd:evaluationMethodDescription">
-                                <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Evaluation[1]"/> </xsl:element>
-                            </xsl:element>
-                        </xsl:if>
-                        
-                        <xsl:element name="gmd:result">
-                            <xsl:element name="gmd:DQ_QuantitativeResult">
-                                <xsl:element name="gmd:valueUnit">
-                                    <xsl:element name="gml:BaseUnit">
-                                        <xsl:attribute name="gml:id">meters</xsl:attribute>
-                                        <xsl:element name="gml:identifier">
-                                            <xsl:attribute name="codeSpace">meters</xsl:attribute>
-                                        </xsl:element>
-                                        <xsl:element name="gml:unitsSystem">
-                                            <xsl:attribute name="xlink:href">http://www.bipm.org/en/si/</xsl:attribute>
-                                        </xsl:element>
-                                        
+                    <xsl:element name="gmd:report">
+                        <xsl:element name="gmd:DQ_CompletenessOmission">
+                            
+                            <xsl:if test="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Measure[1]">
+                                <xsl:element name="gmd:nameOfMeasure">
+                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Measure[1]"/>
                                     </xsl:element>
                                 </xsl:element>
-                                
-                                <xsl:for-each select="/GPM/Data_Quality_Information/Horizontal_Positional_Accuracy_Report/Test_Report/Result">
-                                    <xsl:element name="gmd:value">
-                                        <xsl:element name="gco:Record"><xsl:value-of select="."/></xsl:element>
+                            </xsl:if>
+                            
+                            <xsl:if test="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Evaluation[1]">
+                                <xsl:element name="gmd:evaluationMethodDescription">
+                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Data_Quality_Information[1]/Horizontal_Positional_Accuracy_Report[1]/Test_Report[1]/Evaluation[1]"/> </xsl:element>
+                                </xsl:element>
+                            </xsl:if>
+                            
+                            <xsl:element name="gmd:result">
+                                <xsl:element name="gmd:DQ_QuantitativeResult">
+                                    <xsl:element name="gmd:valueUnit">
+                                        <xsl:element name="gml:BaseUnit">
+                                            <xsl:attribute name="gml:id">meters</xsl:attribute>
+                                            <xsl:element name="gml:identifier">
+                                                <xsl:attribute name="codeSpace">meters</xsl:attribute>
+                                            </xsl:element>
+                                            <xsl:element name="gml:unitsSystem">
+                                                <xsl:attribute name="xlink:href">http://www.bipm.org/en/si/</xsl:attribute>
+                                            </xsl:element>
+                                            
+                                        </xsl:element>
                                     </xsl:element>
-                                </xsl:for-each>
-                                
+                                    
+                                    <xsl:for-each select="/GPM/Data_Quality_Information/Horizontal_Positional_Accuracy_Report/Test_Report/Result">
+                                        <xsl:element name="gmd:value">
+                                            <xsl:element name="gco:Record"><xsl:value-of select="."/></xsl:element>
+                                        </xsl:element>
+                                    </xsl:for-each>
+                                    
+                                </xsl:element>
                             </xsl:element>
+                            
                         </xsl:element>
-                        
                     </xsl:element>
-                </xsl:element>
                 </xsl:if>
                 
-               <xsl:call-template name="SourceInformation"/>
+                <xsl:call-template name="SourceInformation"/>
             </xsl:element>
         </xsl:element>
         

@@ -281,7 +281,7 @@
                                                                             <xsl:element name="gmd:CI_Citation">
                                                                                 
                                                                                 <xsl:element name="gmd:title">
-                                                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Attribute_Definition_Source"/></xsl:element>
+                                                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Enumerated_Domain_Value_Definition_Source"/></xsl:element>
                                                                                 </xsl:element>
                                                                                 
                                                                                 <xsl:element name="gmd:date">                                                     
@@ -317,6 +317,91 @@
                                     </xsl:element>
                                 </xsl:for-each>
                                 
+                                <xsl:for-each select="./Attribute_Domain_Values/Codeset_Domain">
+                                    <xsl:element name="gfc:listedValue">
+                                        <xsl:element name="gfc:FC_ListedValue">
+                                            
+                                            <xsl:element name="gfc:label">
+                                                <xsl:element name="gco:CharacterString"><xsl:value-of select="./Codeset_Name"/></xsl:element>
+                                            </xsl:element>
+                                            
+                                            <xsl:variable name="CodesetRef" select="./Codeset_Source"></xsl:variable>
+                                            
+                                            <xsl:choose>
+                                                <xsl:when test="contains($CodesetRef,'Census')">
+                                                    <!--   <xsl:comment>Census!!!!!!!!!!!!!!!!!</xsl:comment>-->
+                                                    <xsl:element name="gfc:definitionReference">
+                                                        <xsl:attribute name="xlink:title">U.S Census Bureau</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/eb139e38-ee29-4d59-b157-5e874d4420c4</xsl:attribute>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:when test="contains($CodesetRef,'U.S. Postal Service')">
+                                                    <xsl:element name="gfc:definitionReference">
+                                                        <xsl:attribute name="xlink:title">U.S. Postal Service</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/2de06071-f4d0-49b7-bd93-ba7a38e5d911 </xsl:attribute>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:when test="contains($CodesetRef,'USPS')">
+                                                    <xsl:element name="gfc:definitionReference">
+                                                        <xsl:attribute name="xlink:title">U.S. Postal Service</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/2de06071-f4d0-49b7-bd93-ba7a38e5d911 </xsl:attribute>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:when test="contains($CodesetRef,'Office of Management and Budget')">
+                                                    <xsl:element name="gfc:definitionReference">
+                                                        <xsl:attribute name="xlink:title">Office of Management and Budget (OMB)</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:when test="contains($CodesetRef,'OMB')">
+                                                    <xsl:element name="gfc:definitionReference">
+                                                        <xsl:attribute name="xlink:title">Office of Management and Budget (OMB)</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:when test="contains($CodesetRef, 'United States Geological Survey')">
+                                                    <xsl:element name="gfc:definitionReference">
+                                                        <xsl:attribute name="xlink:title">United States Geological Survey (USGS)</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/8d0b86d3-09b4-4fc4-8e8e-2922517fe12d </xsl:attribute>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:when test="contains($CodesetRef, 'USGS')">
+                                                    <xsl:element name="gfc:definitionReference">
+                                                        <xsl:attribute name="xlink:title">United States Geological Survey (USGS)</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/8d0b86d3-09b4-4fc4-8e8e-2922517fe12d </xsl:attribute>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:comment>In the otherwise!!!!!!!!!!</xsl:comment>
+                                                    <xsl:element name="gfc:definitionReference">
+                                                        <xsl:element name="gfc:FC_DefinitionReference">
+                                                            <xsl:element name="gfc:definitionSource">
+                                                                <xsl:element name="gfc:FC_DefinitionSource">
+                                                                    <xsl:element name="gfc:source">
+                                                                        <xsl:element name="gmd:CI_Citation">
+                                                                            
+                                                                            <xsl:element name="gmd:title">
+                                                                                <xsl:element name="gco:CharacterString"><xsl:value-of select="./Codeset_Source"/></xsl:element>
+                                                                            </xsl:element>
+                                                                            
+                                                                            <xsl:element name="gmd:date">                                                     
+                                                                                <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
+                                                                            </xsl:element>
+                                                                        </xsl:element>
+                                                                    </xsl:element>
+                                                                </xsl:element>
+                                                                
+                                                            </xsl:element>
+                                                        </xsl:element>
+                                                        
+                                                    </xsl:element>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                            
+                                        </xsl:element>
+                                    </xsl:element>
+                                    
+                                </xsl:for-each>
                                 
                                 
                             </xsl:element>
