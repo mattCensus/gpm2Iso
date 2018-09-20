@@ -184,6 +184,7 @@
                                                              </xsl:when>
                                                              <xsl:otherwise>
                                                                  <xsl:element name="gml:TimeInstant">
+                                                                     <xsl:comment>right here</xsl:comment>
                                                                      <xsl:attribute name="gml:id">AK</xsl:attribute>
                                                                      <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
                                                                      <xsl:element name="gml:timePosition">
@@ -332,20 +333,40 @@
                                                        </xsl:otherwise>
                                                        </xsl:choose>
                                                      </xsl:when>
+                                                     
+                                                     <xsl:when test="contains($AppCheck,'RGB')">
+                                                         
+                                                         <xsl:comment>Is the problem here????????????????????????</xsl:comment>
+                                                         <xsl:element name="gml:TimeInstant">
+                                                             <xsl:attribute name="gml:id">RGB</xsl:attribute>
+                                                             <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+                                                             <xsl:element name="gml:timePosition">
+                                                                 <xsl:attribute name="indeterminatePosition">unknown</xsl:attribute>
+                                                             </xsl:element>
+                                                         </xsl:element>
+                                                         <!--    <xsl:attribute name="gml:id">AK</xsl:attribute>-->
+                                                     </xsl:when>
+                                                     
                                                      <xsl:when test="contains($AppCheck,'AK')">
-                                                         <xsl:attribute name="gml:id">AK</xsl:attribute>
+                                                         
+                                                        <xsl:comment>Is the problem here????????????????????????</xsl:comment>
+                                                         <xsl:element name="gml:TimeInstant">
+                                                             <xsl:attribute name="gml:id">AK</xsl:attribute>
                                                          <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
                                                          <xsl:element name="gml:timePosition">
                                                              <xsl:attribute name="indeterminatePosition">unknown</xsl:attribute>
                                                          </xsl:element>
+                                                         </xsl:element>
+                                                        <!--    <xsl:attribute name="gml:id">AK</xsl:attribute>-->
                                                      </xsl:when>
+                                                     
                                                      <xsl:when test="contains($AppCheck,'.')">
                                                          <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'.')"/>
                                                          <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
                                                      </xsl:when>
                                                      <xsl:when test="contains($AppCheck,'_')">
                                                          <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'_')"/>
-                                                         <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+                                                        <!--  <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute> -->
                                                      </xsl:when>
                                                      <xsl:when test="not($BegDate =$EndDate)">
                                                          <xsl:comment>Two dates not equal</xsl:comment>
