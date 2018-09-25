@@ -27,11 +27,38 @@
                     <xsl:element name="gmd:MD_MaintenanceFrequencyCode">
                         <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode</xsl:attribute>
                         <xsl:choose>
-                            <xsl:when test="/GPM/FGDC_Required">
+                            <xsl:when test="/GPM/FGDC_Required/NGDA_Info">
                                 <xsl:attribute name="codeListValue">annually</xsl:attribute>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:attribute name="codeListValue">notPlanned</xsl:attribute>
+                                <!--  <xsl:attribute name="codeListValue">notPlanned</xsl:attribute>-->
+                                <xsl:variable name="MaintUpdateFreq" select="/GPM/Identification_Information/Status/Maintenance_and_Update_Frequency"></xsl:variable>
+                                <xsl:choose>
+                                    <xsl:when test="contains($MaintUpdateFreq,'None planned')">
+                                        <xsl:attribute name="codeListValue">annually</xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:when test="contains($MaintUpdateFreq,'Daily')">
+                                        <xsl:attribute name="codeListValue">daily</xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:when test="contains($MaintUpdateFreq,'Weekly')">
+                                        <xsl:attribute name="codeListValue">weekly</xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:when test="contains($MaintUpdateFreq,'Monthly')">
+                                        <xsl:attribute name="codeListValue">monthly</xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:when test="contains($MaintUpdateFreq,'Annually')">
+                                        <xsl:attribute name="codeListValue">annually</xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:when test="contains($MaintUpdateFreq,'Unknown')">
+                                        <xsl:attribute name="codeListValue">unknown</xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:when test="contains($MaintUpdateFreq,'As needed')">
+                                        <xsl:attribute name="codeListValue">asNeeded</xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:when test="contains($MaintUpdateFreq,'Irregular')">
+                                        <xsl:attribute name="codeListValue">irregular</xsl:attribute>
+                                    </xsl:when>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:element>
