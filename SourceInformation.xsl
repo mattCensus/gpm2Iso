@@ -345,7 +345,7 @@
                                                              </xsl:element>
                                                          </xsl:element>
                                                          <!--    <xsl:attribute name="gml:id">AK</xsl:attribute>-->
-                                                     </xsl:when>
+                                                     </xsl:when>    
                                                      
                                                      <xsl:when test="contains($AppCheck,'AK')">
                                                          
