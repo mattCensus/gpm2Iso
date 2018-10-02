@@ -54,9 +54,19 @@
                 <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/Feature_Types"/></xsl:element>
             </xsl:element>
             
-            <xsl:element name="gmx:versionNumber">
-                <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information/Citation/Edition"/></xsl:element>
-            </xsl:element>
+            <xsl:choose>
+                <xsl:when test="/GPM/Identification_Information/Citation/Edition">
+                    <xsl:element name="gmx:versionNumber">
+                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information/Citation/Edition"/></xsl:element>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:when test="/GPM/Identification_Information/Citation/Publication_Date">
+                    <xsl:element name="gmx:versionNumber">
+                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information/Citation/Publication_Date"/></xsl:element>
+                    </xsl:element>
+                </xsl:when>
+            </xsl:choose>
+            
             
             <xsl:element name="gmx:versionDate">
                 <xsl:element name="gco:Date"> <xsl:value-of select="/GPM/Metadata_Reference_Information/Metadata_Date"/> </xsl:element>
@@ -125,7 +135,9 @@
                                                             </xsl:element>
                                                             
                                                             <xsl:element name="gco:upper">
-                                                                <xsl:element name="gco:UnlimitedInteger"><xsl:value-of select="./Range_Domain_Maximum"/></xsl:element>
+                                                                <xsl:variable name="Upper" select="./Range_Domain_Maximum"/>
+                                                                <xsl:variable name="UnLinInt" select="translate($Upper,',','')"></xsl:variable>
+                                                                <xsl:element name="gco:UnlimitedInteger"><xsl:value-of select="$UnLinInt"/></xsl:element>
                                                             </xsl:element>
                                                             
                                                         </xsl:element>

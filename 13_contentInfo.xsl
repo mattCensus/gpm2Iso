@@ -78,10 +78,11 @@
     </xsl:template>
     
     <xsl:template name="ContentInfoCit">
+        <xsl:for-each select="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description">
         <xsl:element name="gmd:featureCatalogueCitation">
             <xsl:element name="gmd:CI_Citation">
                 <xsl:element name="gmd:title">
-                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Entity_and_Attribute_Information[1]/Feature_Catalogue_Description[1]/FC_Title[1]"/></xsl:element>
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./FC_Title"/></xsl:element>
                     </xsl:element>
             
             <xsl:element name="gmd:date">
@@ -100,10 +101,11 @@
                 </xsl:element>
             </xsl:element>
                 <xsl:element name="gmd:otherCitationDetails">
-                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/FC_Online_Linkage"/></xsl:element>
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./FC_Online_Linkage"/></xsl:element>
                 </xsl:element>
             </xsl:element>
         </xsl:element>
+        </xsl:for-each>
         
     </xsl:template>
    

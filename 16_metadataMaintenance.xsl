@@ -35,7 +35,7 @@
                                 <xsl:variable name="MaintUpdateFreq" select="/GPM/Identification_Information/Status/Maintenance_and_Update_Frequency"></xsl:variable>
                                 <xsl:choose>
                                     <xsl:when test="contains($MaintUpdateFreq,'None planned')">
-                                        <xsl:attribute name="codeListValue">annually</xsl:attribute>
+                                        <xsl:attribute name="codeListValue">notPlanned</xsl:attribute>
                                     </xsl:when>
                                     <xsl:when test="contains($MaintUpdateFreq,'Daily')">
                                         <xsl:attribute name="codeListValue">daily</xsl:attribute>
@@ -58,6 +58,9 @@
                                     <xsl:when test="contains($MaintUpdateFreq,'Irregular')">
                                         <xsl:attribute name="codeListValue">irregular</xsl:attribute>
                                     </xsl:when>
+                                   <xsl:otherwise>
+                                       <xsl:attribute name="codeListValue"><xsl:value-of select="/GPM/Identification_Information/Status/Maintenance_and_Update_Frequency"/></xsl:attribute>
+                                   </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>

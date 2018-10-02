@@ -37,4 +37,25 @@
         </xsl:element>
     </xsl:template>
     
+    
+    <xsl:template name="ProjectionInfo">
+        <xsl:for-each select="/GPM/Spatial_Reference_Information/EPSG_Reference">
+        <xsl:element name="gmd:referenceSystemInfo">
+            <xsl:element name="gmd:MD_ReferenceSystem">
+                <xsl:element name="gmd:referenceSystemIdentifier">
+                    <xsl:element name="gmd:RS_Identifier">
+                        <xsl:element name="gmd:code">
+                            <xsl:element name="gco:CharacterString"><xsl:value-of select="./EPSG_Code"/></xsl:element>
+                        </xsl:element>
+                        <xsl:element name="gmd:codeSpace">
+                            <xsl:element name="gco:CharacterString"><xsl:value-of select="./EPSG_Code_Space[1]"/></xsl:element>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
+        </xsl:element>
+        </xsl:for-each>
+    </xsl:template>
+    
+    
 </xsl:stylesheet>

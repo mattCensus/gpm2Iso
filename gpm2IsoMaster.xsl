@@ -66,21 +66,22 @@
             <xsl:call-template name="gpm2GmdMetadataCharacterSet"/>
             <xsl:call-template name="gpm2GmdparentIdentifier"/>
             <xsl:call-template name="gpm2GmdHierarchyLevel"/>
-            
-           
             <xsl:call-template name="gpm2GmdMetContact"/>
-            
-            
             <xsl:call-template name="gpm2GmdMetDate"/>
             <xsl:call-template name="gpm2GmdMetStandardNameVer"/>
-            <xsl:call-template name="gpm2GmdDataSetURI"/>
-            
+            <xsl:if test="/GPM/Identification_Information/Citation/Online_Linkage">
+                <xsl:call-template name="gpm2GmdDataSetURI"/>
+            </xsl:if>
           
             <!-- /GPM/Entity_and_Attribute_Information[1] -->
             <xsl:if test="/GPM/Spatial_Data_Organization_Information/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type">
                 <xsl:call-template name="gpm2GmdSpatialRepresentationInfo"/>
             </xsl:if>
             <xsl:call-template name="gpm2GmdReferenceSystemInfo"/>
+            
+            <xsl:if test="/GPM/Spatial_Reference_Information">
+               <xsl:call-template name="ProjectionInfo"/>    
+            </xsl:if>
             
             <xsl:choose>
                 <xsl:when test="/GPM/Computer_Service_Information[1]">

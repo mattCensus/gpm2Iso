@@ -26,37 +26,32 @@
     <xsl:template name="gpm2GmdfileIdentifier">
         <xsl:element name="gmd:fileIdentifier">
             <xsl:variable name="mrfFileId" select="/GPM/Metadata_Reference_Information[1]/Metadata_File_Identifier[1]"/>
-            <xsl:variable name="preXML" select="substring-before($mrfFileId,'.xml')"/>
-            
+            <xsl:variable name="preGPP" select="substring-before($mrfFileId,'.gpm')"/>
             <xsl:choose>
                 <xsl:when test="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Digital_Form[1]/Format_Name[1] ='KML'">
-                                
                     <xsl:choose>
-                        <xsl:when test="contains($preXML,'kml')">
-                            <xsl:variable name="finalKml" select="concat($preXML,'.iso.xml')"/>
+                        <xsl:when test="contains($preGPP,'kml')">
+                            <xsl:variable name="finalKml" select="concat($preGPP,'.iso.xml')"/>
                             <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalKml"/></xsl:element>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:variable name="finalKml" select="concat($preXML,'.kml.iso.xml')"/>
+                            <xsl:variable name="finalKml" select="concat($preGPP,'.kml.iso.xml')"/>
                             <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalKml"/></xsl:element>
                         </xsl:otherwise>
                     </xsl:choose>
                     <!--   <xsl:comment>In the KML!!!!!!!!!!!!!</xsl:comment>-->
                     <xsl:text>         
                  </xsl:text>
-                    
                 </xsl:when>
                 <xsl:otherwise>
                     <!--<xsl:comment>In the otherwise (shapefile)</xsl:comment>-->
-                    
-                    
                     <xsl:choose>
-                        <xsl:when test="contains($preXML,'shp')">
-                            <xsl:variable name="finalShp" select="concat($preXML, '.iso.xml')"/>
+                        <xsl:when test="contains($preGPP,'shp')">
+                            <xsl:variable name="finalShp" select="concat($preGPP, '.iso.xml')"/>
                             <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalShp"/></xsl:element>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:variable name="finalShp" select="concat($preXML, '.shp.iso.xml')"/>
+                            <xsl:variable name="finalShp" select="concat($preGPP, '.shp.iso.xml')"/>
                             <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalShp"/></xsl:element>
                         </xsl:otherwise>
                     </xsl:choose>
