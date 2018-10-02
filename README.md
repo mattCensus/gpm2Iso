@@ -40,4 +40,4 @@ with
                         </gmd:EX_Extent>
                      </gmd:sourceExtent>
                      
-                     
+                     Fix the file:/H:/MetadataSchemas/xslts/gpm2iso/SourceInformation.xsl so that single dates can work!!!!!!!!!!!
