@@ -348,33 +348,20 @@
                                                      <xsl:when test="contains($AppCheck,'ADCAN')">
                                                          <xsl:comment>In the ADCAN type 4</xsl:comment>
                                                          <xsl:attribute name="gml:id">CensusADCAN</xsl:attribute>
-                                                         
+                                                     
                                                        <xsl:choose>
                                                            
            
                                                            <xsl:when test="not($BegDate =$EndDate)">
-                                                                 <xsl:comment>Two dates not equal</xsl:comment>
-                                                               <!--  <xsl:element name="gmd:sourceExtent">
-                                                                   <xsl:element name="gmd:EX_Extent">
-                                                                       <xsl:element name="gmd:temporalElement">
-                                                                           <xsl:element name="gmd:EX_TemporalExtent">
-                                                                               <xsl:element name="gmd:extent">-->
-                                                                                   <xsl:element name="gml:TimePeriod">
-                                                                                      
-                                                                                       <xsl:variable name="TitleB" select="substring($ProperTitle,0,5)"/>
-                                                                                       <!--  <xsl:comment>TitleB: <xsl:value-of select="$TitleB"/></xsl:comment>-->
-                                                                                       
-                                                                                       <xsl:variable name="finalTitle" select="concat('ADCAN',$TitleB,$BegDate)"/>
-                                                                                       <xsl:variable name="timeId" select="substring($ProperTitle,0,5)"/>
-                                                                                       <xsl:attribute name="gml:id"><xsl:value-of select="$finalTitle"/></xsl:attribute>
-                                                                                       <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
-                                                                                       <xsl:element name="gml:beginPosition"><xsl:value-of select="$BegDate"/></xsl:element>
-                                                                                       <xsl:element name="gml:endPosition"> <xsl:value-of select="$EndDate"/></xsl:element>
-                                                                                   <!--</xsl:element>
-                                                                               </xsl:element>
-                                                                           </xsl:element>
-                                                                        </xsl:element>
-                                                                   </xsl:element>-->
+                                                                <xsl:comment>Two dates not equal</xsl:comment>
+                                                               <xsl:element name="gml:TimePeriod">                                                                                     
+                                                                   <xsl:variable name="TitleB" select="substring($ProperTitle,0,5)"/>
+                                                                   <xsl:variable name="finalTitle" select="concat('ADCAN',$TitleB,$BegDate)"/>
+                                                                   <xsl:variable name="timeId" select="substring($ProperTitle,0,5)"/>
+                                                                   <xsl:attribute name="gml:id"><xsl:value-of select="$finalTitle"/></xsl:attribute>
+                                                                   <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
+                                                                   <xsl:element name="gml:beginPosition"><xsl:value-of select="$BegDate"/></xsl:element>
+                                                                   <xsl:element name="gml:endPosition"> <xsl:value-of select="$EndDate"/></xsl:element>
                                                                </xsl:element>
                                                            </xsl:when>
                                                           
@@ -428,12 +415,12 @@
                                                      </xsl:when>
                                                      
                                                      <xsl:when test="contains($AppCheck,'.')">
-                                                         <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'.')"/>
-                                                         <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute>
+                                                         <xsl:variable name="TimperiodCA" select="substring-before($AppCheck,'.')"/>
+                                                         <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodCA"/></xsl:attribute>
                                                      </xsl:when>
                                                      <xsl:when test="contains($AppCheck,'_')">
-                                                         <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'_')"/>
-                                                        <!--  <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute> -->
+                                                          <!-- <xsl:variable name="TimperiodB" select="substring-before($AppCheck,'_')"/>
+                                                        <xsl:attribute name="gml:id"><xsl:value-of select="TimperiodB"/></xsl:attribute> -->
                                                      </xsl:when>
                                                      <xsl:when test="not($BegDate =$EndDate)">
                                                           <xsl:comment>Two dates not equal Number 2</xsl:comment> 
@@ -446,8 +433,13 @@
                                                                                  <!-- /GPM/Data_Quality_Information[1]/Source_Information -->
                                                                                  <xsl:variable name="Title" select="./Citation/Title"/>
                                                                                  <xsl:variable name="TitleB" select="substring($Title,0,5)"/>
+                                                                                 
+                                                                                 <xsl:variable name="sorAbbr" select="./Source_Citation_Abbreviation[1]"/>
+                                                                                 <xsl:variable name="SorTwo" select="translate($sorAbbr,' ','')"/>
+                                                                                 <xsl:variable name="SorThree" select="translate($SorTwo,'-','')"/>
+                                                                                 
                                                                                  <!--  <xsl:comment>TitleB: <xsl:value-of select="$TitleB"/></xsl:comment>-->
-                                                                                 <xsl:variable name="finalTitle" select="concat($TitleB,$BegDate)"/>
+                                                                                 <xsl:variable name="finalTitle" select="concat('Source',$SorThree,$TitleB,$BegDate)"/>
                                                                                  <xsl:variable name="timeId" select="substring($Title,0,5)"/>
                                                                                  <xsl:attribute name="gml:id"><xsl:value-of select="$finalTitle"/></xsl:attribute>
                                                                                  <xsl:element name="gml:beginPosition"><xsl:value-of select="$BegDate"/></xsl:element>
