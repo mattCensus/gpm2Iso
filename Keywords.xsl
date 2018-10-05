@@ -20,8 +20,55 @@
         </xd:desc>
     </xd:doc>
 
-    <xsl:template name="ISOKeywords">
-        <xsl:if test="/GPM/FGDC_Required/ISO_Theme">
+<xsl:template name="ISOKeywords">
+    <xsl:if test="/GPM/FGDC_Required/ISO_Theme">
+        <xsl:element name="gmd:descriptiveKeywords">
+            <xsl:element name="gmd:MD_Keywords">
+                
+                <xsl:for-each select="/GPM/FGDC_Required/ISO_Theme/ISO_Keyword">
+                    <xsl:element name="gmd:keyword">
+                        <xsl:element name="gco:CharacterString"><xsl:value-of select="."/></xsl:element>
+                    </xsl:element>
+                </xsl:for-each>
+                
+                <xsl:element name="gmd:type">
+                    <xsl:element name="gmd:MD_KeywordTypeCode">
+                        <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode</xsl:attribute>
+                        <xsl:attribute name="codeListValue">theme</xsl:attribute>theme
+                    </xsl:element>
+                </xsl:element>
+                
+                <xsl:element name="gmd:thesaurusName">
+                    <xsl:element name="gmd:CI_Citation">
+                        <xsl:element name="gmd:title">
+                            <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/FGDC_Required[1]/ISO_Theme[1]/ISO_Keyword_Thesaurus[1]"/></xsl:element>
+                        </xsl:element>
+                        <xsl:element name="gmd:date">
+                            <xsl:element name="gmd:CI_Date">
+                                <!--  <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>-->
+                                <xsl:element name="gmd:date">
+                                    <xsl:element name="gco:Date">2014-04-01</xsl:element>
+                                </xsl:element>
+                                <xsl:element name="gmd:dateType">
+                                    <xsl:element name="gmd:CI_DateTypeCode">
+                                        <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode</xsl:attribute>
+                                        <xsl:attribute name="codeListValue">revision</xsl:attribute>revision </xsl:element>
+                                </xsl:element>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+                
+                
+            </xsl:element>
+        </xsl:element>
+    </xsl:if>
+</xsl:template>
+
+
+
+    <xsl:template name="NGDAKeywords">
+        <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]">
             <xsl:element name="gmd:descriptiveKeywords">
                 <xsl:element name="gmd:MD_Keywords">
                     <xsl:element name="gmd:keyword">
@@ -29,26 +76,22 @@
                     </xsl:element>
                     <xsl:element name="gmd:keyword">
                         <xsl:element name="gco:CharacterString">
-                            <xsl:value-of
-                                select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[2]"/>
+                            <xsl:value-of select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[2]"/>
                         </xsl:element>
                     </xsl:element>
                     <xsl:element name="gmd:keyword">
-                        <xsl:element name="gco:CharacterString">National Geospatial Data
-                            Asset</xsl:element>
+                        <xsl:element name="gco:CharacterString">National Geospatial Data Asset</xsl:element>
                     </xsl:element>
                     <xsl:element name="gmd:type">
                         <xsl:element name="gmd:MD_KeywordTypeCode">
-                            <xsl:attribute name="codeList"
-                                >http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode</xsl:attribute>
+                            <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode</xsl:attribute>
                             <xsl:attribute name="codeListValue">theme</xsl:attribute>theme
                         </xsl:element>
                     </xsl:element>
                     <xsl:element name="gmd:thesaurusName">
                         <xsl:element name="gmd:CI_Citation">
                             <xsl:element name="gmd:title">
-                                <xsl:element name="gco:CharacterString">NGDA Portfolio
-                                    Themes</xsl:element>
+                                <xsl:element name="gco:CharacterString">NGDA Portfolio Themes</xsl:element>
                             </xsl:element>
                             <xsl:element name="gmd:date">
                                 <xsl:element name="gmd:CI_Date">
@@ -58,10 +101,8 @@
                                     </xsl:element>
                                     <xsl:element name="gmd:dateType">
                                         <xsl:element name="gmd:CI_DateTypeCode">
-                                            <xsl:attribute name="codeList"
-                                                >http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode</xsl:attribute>
-                                            <xsl:attribute name="codeListValue"
-                                                >revision</xsl:attribute>revision </xsl:element>
+                                            <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode</xsl:attribute>
+                                            <xsl:attribute name="codeListValue">revision</xsl:attribute>revision </xsl:element>
                                     </xsl:element>
                                 </xsl:element>
                             </xsl:element>

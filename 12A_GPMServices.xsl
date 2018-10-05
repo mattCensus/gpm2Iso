@@ -69,7 +69,7 @@
                         </xsl:element>
                     </xsl:if>
                     
-                    <xsl:call-template name="ISOKeywords"/>
+                    <xsl:call-template name="NGDAKeywords"/>
                     <xsl:call-template name="ThemeKeywords"/>
                     <xsl:call-template name="PlaceKeywords"/>
                     <xsl:call-template name="Constraints"/>

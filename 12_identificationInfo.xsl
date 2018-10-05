@@ -68,7 +68,7 @@
             </xsl:element>
             </xsl:if>
             
-           <xsl:call-template name="ISOKeywords"/>
+           <xsl:call-template name="NGDAKeywords"/>
            <xsl:call-template name="ThemeKeywords"/>
            <xsl:call-template name="PlaceKeywords"/>
             <xsl:call-template name="Constraints"/>
@@ -79,8 +79,9 @@
                         <xsl:element name="gmd:aggregateDataSetName">
                             <xsl:element name="gmd:CI_Citation">
                                 <xsl:element name="gmd:title">
-                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Cross_Reference[1]/Title[1]"/></xsl:element>
+                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Cross_Reference[1]/Citation[1]/Title[1]"/></xsl:element>
                                 </xsl:element>
+                                
                                 <xsl:element name="gmd:date">
                                     <xsl:element name="gmd:CI_Date">
                                         <xsl:element name="gmd:date">
@@ -92,6 +93,23 @@
                                                 <xsl:attribute name="codeListValue">publication</xsl:attribute>publication
                                             </xsl:element>
                                         </xsl:element>
+                                    </xsl:element>
+                                </xsl:element>
+                                
+                                <xsl:element name="gmd:citedResponsibleParty">
+                                    <xsl:element name="gmd:CI_ResponsibleParty">
+                                        <xsl:element name="gmd:organisationName">
+                                            <xsl:element name="gco:CharacterString">
+                                                <xsl:value-of select="/GPM/Identification_Information[1]/Cross_Reference[1]/Citation[1]/Originator[1]"/> 
+                                            </xsl:element>
+                                        </xsl:element>
+                                        <xsl:element name="gmd:role">
+                                            <xsl:element name="gmd:CI_RoleCode">
+                                                <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode</xsl:attribute>
+                                                <xsl:attribute name="codeListValue">resourceProvider</xsl:attribute>
+                                            </xsl:element>
+                                        </xsl:element>
+                                        
                                     </xsl:element>
                                 </xsl:element>
                                 
@@ -127,6 +145,9 @@
                 </xsl:otherwise>
             </xsl:choose>
             
+            
+            
+            
             <xsl:choose>
                 <xsl:when test="/GPM/Identification_Information[1]/Data_Set_Character_Set[1]">
                     <xsl:element name="gmd:characterSet">
@@ -147,10 +168,12 @@
                 </xsl:otherwise>
             </xsl:choose>
             
-            <xsl:if test="/GPM/FGDC_Required[1]/ISO_Theme[1]/Theme_Keyword[1]">
-            <xsl:element name="gmd:topicCategory">
-                <xsl:element name="gmd:MD_TopicCategoryCode"><xsl:value-of select="/GPM/FGDC_Required[1]/ISO_Theme[1]/Theme_Keyword[1]"/></xsl:element>
-            </xsl:element>
+            <xsl:if test="/GPM/FGDC_Required[1]/ISO_Theme[1]">
+                <xsl:for-each select="/GPM/FGDC_Required/ISO_Theme/ISO_Keyword">
+                    <xsl:element name="gmd:topicCategory">
+                        <xsl:element name="gmd:MD_TopicCategoryCode"><xsl:value-of select="."/></xsl:element>
+                    </xsl:element>
+                </xsl:for-each>
             </xsl:if>
             
             <xsl:element name="gmd:environmentDescription">
