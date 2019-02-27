@@ -71,7 +71,7 @@
                     <xsl:element name="gco:CharacterString">This was transformed from the Census Geospatial Product Metadata Content Standard.</xsl:element>
                 </xsl:element>
                 
-                <xsl:if test="/GPM/FGDC_Required">
+                <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]">
                     <xsl:element name="gmd:maintenanceNote">
                         <xsl:element name="gco:CharacterString">This dataset is currently a National Gesopatial Data Asset (NGDA) dataset. Next October, this
                             dataset will be edited to remove all the NGDA related tags metadata tags</xsl:element>

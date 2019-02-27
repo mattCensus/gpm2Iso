@@ -125,12 +125,14 @@
                 </xsl:element>
             </xsl:if>
             
+            <xsl:if test="/GPM/Spatial_Data_Organization_Information[1]/Direct_Spatial_Reference_Method[1]">
             <xsl:element name="gmd:spatialRepresentationType">
                 <xsl:element name="gmd:MD_SpatialRepresentationTypeCode">
                     <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_SpatialRepresentationTypeCode</xsl:attribute>
                     <xsl:attribute name="codeListValue"><xsl:value-of select="/GPM/Spatial_Data_Organization_Information[1]/Direct_Spatial_Reference_Method[1]"></xsl:value-of></xsl:attribute>
                 </xsl:element>
             </xsl:element>
+            </xsl:if>
             
             <xsl:choose>
                 <xsl:when test="/GPM/Identification_Information[1]/Data_Set_Language[1]">

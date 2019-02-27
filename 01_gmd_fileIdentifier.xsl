@@ -27,6 +27,7 @@
         <xsl:element name="gmd:fileIdentifier">
             <xsl:variable name="mrfFileId" select="/GPM/Metadata_Reference_Information[1]/Metadata_File_Identifier[1]"/>
             <xsl:variable name="preGPP" select="substring-before($mrfFileId,'.gpm')"/>
+            <xsl:variable name="Profile" select="/GPM/@profile"/>
             <xsl:choose>
                 <xsl:when test="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Digital_Form[1]/Format_Name[1] ='KML'">
                     <xsl:choose>
@@ -48,6 +49,10 @@
                     <xsl:choose>
                         <xsl:when test="contains($preGPP,'shp')">
                             <xsl:variable name="finalShp" select="concat($preGPP, '.iso.xml')"/>
+                            <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalShp"/></xsl:element>
+                        </xsl:when>
+                        <xsl:when test="contains($Profile,'gdb')">
+                            <xsl:variable name="finalShp" select="concat($preGPP, '.gdb.iso.xml')"/>
                             <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalShp"/></xsl:element>
                         </xsl:when>
                         <xsl:otherwise>

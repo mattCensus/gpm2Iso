@@ -25,15 +25,18 @@
         Cartographic Products Branch
         Spatial Data Collection and Products Branch
      -->
-    <xsl:variable name="MetOrg" select="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Organization[1]"/>
+    <xsl:variable name="MetOrg" select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Organization[1]"/>
     <xsl:variable name="DistOrg" select="/GPM/Distribution_Information[1]/Distributor[1]/Contact_Organization[1]"/>
     
     <xsl:template name="gpm2GmdMetContact">
-        <!--  <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>-->
+        <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>
+        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment>
         <xsl:choose>
             <xsl:when test="/GPM/Metadata_Reference_Information/Point_of_Contact/Contact_Address">
                 <xsl:element name="gmd:contact">
+                    <xsl:comment>Calling the responiible party</xsl:comment>
                     <xsl:call-template name="CI_ResponsibleParty"/>
+                    
                 </xsl:element>
             </xsl:when>
             <xsl:when test="contains($MetOrg,'Geographic Products Branch')">
@@ -46,8 +49,11 @@
             <xsl:when test="contains($MetOrg,'Spatial Products Software')">
                 <xsl:call-template name="GeoSpatProdBranchPOC"/>
             </xsl:when>
+            <xsl:when test="contains($MetOrg,'U.S. Census Bureau')">
+                 <xsl:call-template name="GeoDivPoc"/>
+            </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="GeoDivPoc"/>
+               <xsl:comment> In the otherwise!!!!!!!!!!!!!</xsl:comment>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -70,8 +76,13 @@
             <xsl:when test="contains($DistOrg,'Spatial Products Software')">
                 <xsl:call-template name="GeoSpatProdBranchDPOC"/>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="contains($DistOrg,'U.S. Census Bureau')">
                 <xsl:call-template name="GeoDivDPoc"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="gmd:distributorContact">
+                    <xsl:call-template name="CI_ResponsibleParty"/>
+                </xsl:element>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -179,17 +190,19 @@
                         <xsl:element name="gmd:CI_Telephone">                                        
                             <xsl:element name="gmd:voice">
                                 <xsl:choose>
-                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Voice_Telephone">
-                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Voice_Telephone"/></xsl:element>
+                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Voice_Telephone[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Voice_Telephone[1]"/></xsl:element>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:element name="gco:CharacterString">301-763-1128</xsl:element>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:element>
-                            <xsl:element name="gmd:facsimile">
-                                <xsl:element name="gco:CharacterString">301-763-4710</xsl:element>
-                            </xsl:element>
+                            <xsl:if test="contains($MetOrg,'U.S. Census Bureau')">
+                                <xsl:element name="gmd:facsimile">
+                                    <xsl:element name="gco:CharacterString">301-763-4710</xsl:element>
+                                </xsl:element>
+                            </xsl:if>
                         </xsl:element>
                     </xsl:element>
                     
@@ -198,8 +211,8 @@
                             
                             <xsl:element name="gmd:deliveryPoint">
                                 <xsl:choose>
-                                    <xsl:when test="/GPM/Metadata_Reference_Information/Contact_Address/Contact_Address/Address">
-                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information/Contact_Address/Contact_Address/Address"/></xsl:element>
+                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact/Contact_Address/Address">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Address[1]"/></xsl:element>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:element name="gco:CharacterString">4600 Silver Hill Road, Stop 7400</xsl:element>
@@ -209,8 +222,8 @@
                             
                             <xsl:element name="gmd:city">
                                 <xsl:choose>
-                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Address[1]/City[1]">
-                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Address[1]/City[1]"/></xsl:element>
+                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/City[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/City[1]"/></xsl:element>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:element name="gco:CharacterString">Washington</xsl:element>
@@ -220,8 +233,9 @@
                             
                             <xsl:element name="gmd:administrativeArea">
                                 <xsl:choose>
-                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Address[1]/State_or_Province[1]">
-                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information/Contact_Address/Contact_Address/State_or_Province"/></xsl:element>
+                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/State_or_Province[1]">
+                                       <!-- <xsl:comment>in the state</xsl:comment> --> 
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/State_or_Province[1]"/></xsl:element>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:element name="gco:CharacterString">DC</xsl:element>
@@ -231,8 +245,8 @@
                             
                             <xsl:element name="gmd:postalCode">
                                 <xsl:choose>
-                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Address[1]/Postal_Code[1]">
-                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Address[1]/Postal_Code[1]"/></xsl:element>
+                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Postal_Code[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Postal_Code[1]"/></xsl:element>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:element name="gco:CharacterString">20233-7400</xsl:element>
@@ -242,8 +256,8 @@
                             
                             <xsl:element name="gmd:country">
                                 <xsl:choose>
-                                    <xsl:when test="/GPM/Metadata_Reference_Information/Contact_Address/Contact_Address/Country">
-                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information/Contact_Address/Contact_Address/Country"/></xsl:element>
+                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Country[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Country[1]"/></xsl:element>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:element name="gco:CharacterString">United States</xsl:element>
@@ -253,8 +267,8 @@
                             
                             <xsl:element name="gmd:electronicMailAddress">
                                 <xsl:choose>
-                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Electronic_Mail_Address[1]">
-                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Contact_Address[1]/Contact_Electronic_Mail_Address[1]"/></xsl:element>
+                                    <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Electronic_Mail_Address[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Electronic_Mail_Address[1]"/></xsl:element>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:element name="gco:CharacterString">geo.geography@census.gov</xsl:element>

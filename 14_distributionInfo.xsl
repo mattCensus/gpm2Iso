@@ -63,9 +63,11 @@
                                 <xsl:element name="gmd:fees">
                                     <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Standard_Order_Process/Fees"/></xsl:element>
                                 </xsl:element>
+                                <xsl:if test="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Ordering_Instructions[1]">
                                 <xsl:element name="gmd:orderingInstructions">
                                     <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information/Standard_Order_Process/Ordering_Instructions"/></xsl:element>
                                 </xsl:element>
+                                </xsl:if>
                             </xsl:element>
                         </xsl:element>
                     </xsl:element>
