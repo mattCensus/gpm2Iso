@@ -28,14 +28,15 @@
     <xsl:variable name="MetOrg" select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Organization[1]"/>
     <xsl:variable name="DistOrg" select="/GPM/Distribution_Information[1]/Distributor[1]/Contact_Organization[1]"/>
     
+   
     <xsl:template name="gpm2GmdMetContact">
-       <!--   <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>
-        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment>-->
+      <!--   <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>
+        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment> -->
         <xsl:choose>
             <xsl:when test="/GPM/Metadata_Reference_Information/Point_of_Contact/Contact_Address">
                 <xsl:element name="gmd:contact">
                     <!-- <xsl:comment>Calling the responiible party</xsl:comment> -->
-                    <xsl:call-template name="CI_ResponsibleParty"/>
+                    <xsl:call-template name="CI_ResponsiblePartyMRI"/>
                     
                 </xsl:element>
             </xsl:when>
@@ -53,17 +54,18 @@
                  <xsl:call-template name="GeoDivPoc"/>
             </xsl:when>
             <xsl:otherwise>
-               <xsl:comment> In the otherwise!!!!!!!!!!!!!</xsl:comment>
+             <!--   <xsl:comment> In the otherwise!!!!!!!!!!!!!</xsl:comment>--> 
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     
     <xsl:template name="gpm2GmdDisContact">
         <!--  <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>-->
         <xsl:choose>
             <xsl:when test="/GPM/Distribution_Information/Point_of_Contact/Contact_Address">
                 <xsl:element name="gmd:distributorContact">
-                    <xsl:call-template name="CI_ResponsibleParty"/>
+                    <xsl:call-template name="CI_ResponsiblePartyDist"/>
                 </xsl:element>
             </xsl:when>
             <xsl:when test="contains($DistOrg,'Geographic Products Branch')">
@@ -81,7 +83,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:element name="gmd:distributorContact">
-                    <xsl:call-template name="CI_ResponsibleParty"/>
+                    <xsl:call-template name="CI_ResponsiblePartyDist"/>
                 </xsl:element>
             </xsl:otherwise>
         </xsl:choose>
@@ -178,7 +180,7 @@
     
     <!-- address contact templates -->
     
-    <xsl:template name="CI_ResponsibleParty">
+    <xsl:template name="CI_ResponsiblePartyMRI">
         <xsl:element name="gmd:CI_ResponsibleParty">
             <xsl:element name="gmd:organisationName">
                 <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Organization[1]"/></xsl:element>
@@ -280,14 +282,149 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:element>
-            
+            <!-- <xsl:comment>Pre role choice</xsl:comment> -->
+            <xsl:choose>
+                <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Role[1]">
+                    <xsl:element name="gmd:role">
+                    <xsl:element name="gmd:CI_RoleCode">
+                        <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode</xsl:attribute>
+                        <xsl:attribute name="codeListValue"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Role[1]"/></xsl:attribute>
+                    </xsl:element>
+                    </xsl:element>
+                </xsl:when>
+           <xsl:otherwise>
             <xsl:element name="gmd:role">
                 <xsl:element name="gmd:CI_RoleCode">
                     <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode</xsl:attribute>
                     <xsl:attribute name="codeListValue">custodian</xsl:attribute>custodian
                 </xsl:element>
             </xsl:element>
-            
+           </xsl:otherwise>
+             </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template name="CI_ResponsiblePartyDist">
+        <xsl:element name="gmd:CI_ResponsibleParty">
+            <xsl:element name="gmd:organisationName">
+                <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Organization[1]"/></xsl:element>
+            </xsl:element>
+            <xsl:element name="gmd:contactInfo">
+                <xsl:element name="gmd:CI_Contact">
+                    
+                    <xsl:element name="gmd:phone">
+                        <xsl:element name="gmd:CI_Telephone">                                        
+                            <xsl:element name="gmd:voice">
+                                <xsl:choose>
+                                    <xsl:when test="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Voice_Telephone[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Voice_Telephone[1]"/></xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="gco:CharacterString">301-763-1128</xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:element>
+                            <xsl:if test="contains($MetOrg,'U.S. Census Bureau')">
+                                <xsl:element name="gmd:facsimile">
+                                    <xsl:element name="gco:CharacterString">301-763-4710</xsl:element>
+                                </xsl:element>
+                            </xsl:if>
+                        </xsl:element>
+                    </xsl:element>
+                    
+                    <xsl:element name="gmd:address">
+                        <xsl:element name="gmd:CI_Address">
+                            
+                            <xsl:element name="gmd:deliveryPoint">
+                                <xsl:choose>
+                                    <xsl:when test="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Address[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Address[1]"/></xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="gco:CharacterString">4600 Silver Hill Road, Stop 7400</xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:element>
+                            
+                            <xsl:element name="gmd:city">
+                                <xsl:choose>
+                                    <xsl:when test="/GPM/Distribution_Information[1]/Contact_Address[1]/City[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="//GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Address[1]/City[1]"/></xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="gco:CharacterString">Washington</xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:element>
+                            
+                            <xsl:element name="gmd:administrativeArea">
+                                <xsl:choose>
+                                    <xsl:when test="/GPM/Distribution_Information[1]/Contact_Address[1]/State_or_Province[1]">
+                                        <!-- <xsl:comment>in the state</xsl:comment> --> 
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="//GPM/Distribution_Information[1]/Contact_Address[1]/State_or_Province[1]"/></xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="gco:CharacterString">DC</xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:element>
+                            
+                            <xsl:element name="gmd:postalCode">
+                                <xsl:choose>
+                                    <xsl:when test="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Postal_Code[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Postal_Code[1]"/></xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="gco:CharacterString">20233-7400</xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:element>
+                            
+                            <xsl:element name="gmd:country">
+                                <xsl:choose>
+                                    <xsl:when test="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Country[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="//GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Country[1]"/></xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="gco:CharacterString">United States</xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:element>
+                            
+                            <xsl:element name="gmd:electronicMailAddress">
+                                <xsl:choose>
+                                    <xsl:when test="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Electronic_Mail_Address[1]">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Contact_Electronic_Mail_Address[1]"/></xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="gco:CharacterString">geo.geography@census.gov</xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:element>
+                            
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
+           <!--  <xsl:comment>Pre role choice</xsl:comment>--> 
+            <xsl:choose>
+                <xsl:when test="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Role[1]">
+                    <xsl:element name="gmd:role">
+                        <xsl:element name="gmd:CI_RoleCode">
+                            <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode</xsl:attribute>
+                            <xsl:attribute name="codeListValue"><xsl:value-of select="/GPM/Distribution_Information[1]/Point_of_Contact[1]/Role[1]"/></xsl:attribute>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:element name="gmd:role">
+                        <xsl:element name="gmd:CI_RoleCode">
+                            <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode</xsl:attribute>
+                            <xsl:attribute name="codeListValue">distributor</xsl:attribute>custodian
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
     

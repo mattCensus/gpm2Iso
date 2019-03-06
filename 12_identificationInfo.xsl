@@ -178,9 +178,10 @@
                 </xsl:for-each>
             </xsl:if>
             
+            <xsl:if test="/GPM/Distribution_Information[1]/Technical_Prerequisites[1]">
             <xsl:element name="gmd:environmentDescription">
                 <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Technical_Prerequisites[1]"/></xsl:element>
-            </xsl:element>
+            </xsl:element></xsl:if>
             <xsl:call-template name="GeoExtent"/>
             
         </xsl:element>

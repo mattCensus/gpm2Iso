@@ -71,13 +71,25 @@
         </xsl:element>
     </xsl:template>
     
+    <xd:doc>
+        <xd:desc>This template(gpm2GmdCitResParty) is called by the gpm2GmdIdentificationCit template. It provides the address information </xd:desc>
+    </xd:doc>
     <xsl:template name="gpm2GmdCitResParty">
+       
+        <xsl:for-each select="/GPM/Identification_Information[1]/Point_of_Contact">
         <xsl:choose>
-            <xsl:when test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]">
+            <xsl:when test="./Contact_Address[1]">
+               
                 <xsl:element name="gmd:citedResponsibleParty">
                     <xsl:element name="gmd:CI_ResponsibleParty">
+                        
+                        <xsl:if test="./Contact_Individual">
+                            <xsl:element name="gmd:individualName">
+                                <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Individual"/></xsl:element>
+                            </xsl:element>
+                        </xsl:if>
                         <xsl:element name="gmd:organisationName">
-                            <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information/Point_of_Contact/Contact_Organization"/></xsl:element>
+                            <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Organization"/></xsl:element>
                         </xsl:element>
                         <xsl:element name="gmd:contactInfo">
                             <xsl:element name="gmd:CI_Contact">
@@ -86,8 +98,8 @@
                                     <xsl:element name="gmd:CI_Telephone">                                        
                                         <xsl:element name="gmd:voice">
                                             <xsl:choose>
-                                                <xsl:when test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Voice_Telephone[1]">
-                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Voice_Telephone[1]"/></xsl:element>
+                                                <xsl:when test="./Contact_Voice_Telephone[1]">
+                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Voice_Telephone[1]"/></xsl:element>
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:element name="gco:CharacterString">301-763-1128</xsl:element>
@@ -102,8 +114,8 @@
                                         
                                         <xsl:element name="gmd:deliveryPoint">
                                             <xsl:choose>
-                                                <xsl:when test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Address[1]">
-                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Address[1]"/></xsl:element>
+                                                <xsl:when test="./Contact_Address[1]/Address[1]">
+                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Address[1]/Address[1]"/></xsl:element>
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:element name="gco:CharacterString">4600 Silver Hill Road, Stop 7400</xsl:element>
@@ -113,8 +125,8 @@
                                         
                                         <xsl:element name="gmd:city">
                                             <xsl:choose>
-                                                <xsl:when test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/City[1]">
-                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/City[1]"/></xsl:element>
+                                                <xsl:when test="./Contact_Address[1]/City[1]">
+                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Address[1]/City[1]"/></xsl:element>
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:element name="gco:CharacterString">Washington</xsl:element>
@@ -124,8 +136,8 @@
                                         
                                         <xsl:element name="gmd:administrativeArea">
                                             <xsl:choose>
-                                                <xsl:when test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/State_or_Province[1]">
-                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/State_or_Province[1]"/></xsl:element>
+                                                <xsl:when test="./Contact_Address[1]/State_or_Province[1]">
+                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Address[1]/State_or_Province[1]"/></xsl:element>
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:element name="gco:CharacterString">DC</xsl:element>
@@ -135,8 +147,8 @@
                                         
                                         <xsl:element name="gmd:postalCode">
                                             <xsl:choose>
-                                                <xsl:when test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Postal_Code[1]">
-                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Postal_Code[1]"/></xsl:element>
+                                                <xsl:when test="./Contact_Address[1]/Postal_Code[1]">
+                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Address[1]/Postal_Code[1]"/></xsl:element>
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:element name="gco:CharacterString">20233-7400</xsl:element>
@@ -146,8 +158,8 @@
                                         
                                         <xsl:element name="gmd:country">
                                             <xsl:choose>
-                                                <xsl:when test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Country[1]">
-                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Address[1]/Country[1]"/></xsl:element>
+                                                <xsl:when test="./Contact_Address[1]/Country[1]">
+                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Address[1]/Country[1]"/></xsl:element>
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:element name="gco:CharacterString">United States</xsl:element>
@@ -157,8 +169,8 @@
                                         
                                         <xsl:element name="gmd:electronicMailAddress">
                                             <xsl:choose>
-                                                <xsl:when test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Electronic_Mail_Address[1]">
-                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Electronic_Mail_Address[1]"/></xsl:element>
+                                                <xsl:when test="./Contact_Electronic_Mail_Address[1]">
+                                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Contact_Electronic_Mail_Address[1]"/></xsl:element>
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:element name="gco:CharacterString">geo.geography@census.gov</xsl:element>
@@ -171,13 +183,26 @@
                             </xsl:element>
                         </xsl:element>
                         
+                       <xsl:choose>
+                           <xsl:when test="./Role[1]">
+                               <xsl:element name="gmd:role">
+                                   <xsl:element name="gmd:CI_RoleCode">
+                                       <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode</xsl:attribute>
+                                       <xsl:attribute name="codeListValue"><xsl:value-of select="./Role"/></xsl:attribute>
+                                   </xsl:element>
+                               </xsl:element>
+                           </xsl:when>
+                           
+                         
+                           <xsl:otherwise>
                         <xsl:element name="gmd:role">
                             <xsl:element name="gmd:CI_RoleCode">
                                 <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode</xsl:attribute>
                                 <xsl:attribute name="codeListValue">custodian</xsl:attribute>custodian
                             </xsl:element>
-                        </xsl:element>
-                        
+                        </xsl:element></xsl:otherwise>
+                       
+                          </xsl:choose>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
@@ -195,5 +220,6 @@
                 <xsl:call-template name="GeoDivCitRepParty"/>
             </xsl:otherwise>
         </xsl:choose>
+        </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
