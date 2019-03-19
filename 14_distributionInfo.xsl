@@ -73,15 +73,20 @@
                     </xsl:element>
                 </xsl:element>    
              <!--   <xsl:comment>In the for each!!!!!!!!!!!!!!!!</xsl:comment> --> 
-                <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form/Network_Address">
+                <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form">
                     <xsl:element name="gmd:transferOptions">
                         <xsl:element name="gmd:MD_DigitalTransferOptions">
+                            <xsl:if test="./Transfer_Size">
+                                <xsl:element name="gmd:transferSize">
+                                    <xsl:element name="gco:Real"><xsl:value-of select="./Transfer_Size"/> </xsl:element>
+                                </xsl:element>
+                            </xsl:if>
                             <xsl:element name="gmd:onLine">
                                 <xsl:element name="gmd:CI_OnlineResource">
                                     <xsl:element name="gmd:linkage">
-                                        <xsl:element name="gmd:URL"> <xsl:value-of select="./Network_Resource_Name[1]"/></xsl:element>
+                                        <xsl:element name="gmd:URL"> <xsl:value-of select="./Network_Address/Network_Resource_Name[1]"/></xsl:element>
                                     </xsl:element>
-                                    <xsl:if test="../Network_Resource_Description">
+                                    <xsl:if test="./Network_Address/Network_Resource_Description">
                                         <xsl:element name="gmd:description">
                                             <xsl:element name="gco:CharacterString"><xsl:value-of select="../Network_Resource_Description"/></xsl:element>
                                         </xsl:element>
