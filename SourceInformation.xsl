@@ -160,7 +160,7 @@
                                                                  </xsl:element>
                                                              </xsl:when>
                                                              <xsl:when test="not($BegDate =$EndDate)">
-                                                                 <xsl:comment>Two dates not equal Number 2dd------</xsl:comment> 
+                                                                 <xsl:comment>Two dates not equal Number 2dd</xsl:comment> 
                                                               
                                                                  
                                                                  <!--  <xsl:comment>TitleB: <xsl:value-of select="$TitleB"/></xsl:comment>-->

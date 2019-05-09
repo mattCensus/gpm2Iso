@@ -102,7 +102,7 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:for-each>
-              <!--  <xsl:comment>outside the for each loop!!!!!!!!!!!!!!!!</xsl:comment> --> 
+              <!--  <xsl:comment>outside the for each loop!!!!!!!!!!!!!!!!</xsl:comment> -->
                 
                 <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]/GETMAP_URL[1]">
                 <xsl:call-template name="WMSNGDA"/>

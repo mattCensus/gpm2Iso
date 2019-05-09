@@ -28,7 +28,87 @@
                         <xsl:element name="gmd:geometricObjectType">
                             <xsl:element name="gmd:MD_GeometricObjectTypeCode">
                                 <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_GeometricObjectTypeCode</xsl:attribute>
-                                <xsl:attribute name="codeListValue"><xsl:value-of select="/GPM/Spatial_Data_Organization_Information/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type"/></xsl:attribute>
+                               
+                                    <!-- <xsl:value-of select="/GPM/Spatial_Data_Organization_Information/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type"/> -->
+                                    <xsl:variable name="SDTSVAR" select="/GPM/Spatial_Data_Organization_Information/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type"/>
+                                    <xsl:choose>
+                                        <xsl:when test="$SDTSVAR = 'Point'"> 
+                                            <xsl:attribute name="codeListValue">point</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR = 'Entity point'">
+                                            <xsl:attribute name="codeListValue">point</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR = 'Label point'">
+                                            <xsl:attribute name="codeListValue">point</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR = 'Area point'">
+                                            <xsl:attribute name="codeListValue">point</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR ='Node, planar graph'">
+                                            <xsl:attribute name="codeListValue">point</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR ='Node, network'">
+                                            <xsl:attribute name="codeListValue">point</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='String'">
+                                            <xsl:attribute name="codeListValue">composite</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Link'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Complete chain'">
+                                            <xsl:attribute name="codeListValue">composite</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Area chain'">
+                                            <xsl:attribute name="codeListValue">composite</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Network chain, planar graph'">
+                                            <xsl:attribute name="codeListValue">composite</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Circular arc, three point center'">
+                                            <xsl:attribute name="codeListValue">composite</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Elliptical arc'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Uniform B-spline'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Piecewise Bezier'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Ring with mixed composition'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Ring composed of strings'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Ring composed of chains'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Ring composed of arcs'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='G-polygon'">
+                                            <xsl:attribute name="codeListValue">surface</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='GT-polygon composed of rings'">
+                                            <xsl:attribute name="codeListValue">surface</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='GT-polygon composed of chain'">
+                                            <xsl:attribute name="codeListValue">surface</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Universe polygon composed of rings'">
+                                            <xsl:attribute name="codeListValue">surface</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='Universe polygon composed of chains'">
+                                            <xsl:attribute name="codeListValue">surface</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="$SDTSVAR"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                
                             </xsl:element>
                         </xsl:element>
                         <xsl:element name="gmd:geometricObjectCount">
