@@ -31,7 +31,7 @@
    
     <xsl:template name="gpm2GmdMetContact">
       <!--   <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>
-        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment> -->
+        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment>--> 
         <xsl:choose>
             <xsl:when test="/GPM/Metadata_Reference_Information/Point_of_Contact/Contact_Address">
                 <xsl:element name="gmd:contact">
@@ -182,6 +182,11 @@
     
     <xsl:template name="CI_ResponsiblePartyMRI">
         <xsl:element name="gmd:CI_ResponsibleParty">
+            <xsl:if test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Individual[1]">
+                <xsl:element name="gmd:individualName">
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Individual[1]"/></xsl:element>
+                </xsl:element>
+            </xsl:if>
             <xsl:element name="gmd:organisationName">
                 <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Organization[1]"/></xsl:element>
             </xsl:element>

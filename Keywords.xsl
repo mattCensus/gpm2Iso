@@ -104,11 +104,11 @@
                                             <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode</xsl:attribute>
                                             <xsl:attribute name="codeListValue">revision</xsl:attribute>revision </xsl:element>
                                     </xsl:element>
-                                    <xsl:element name="gmd:otherCitationDetails">
-                                        <xsl:element name="gco:CharacterString">https://www.fgdc.gov/policyandplanning/a-16/appendixe/20170324-ngda-themes-fgdc-sc-revised-appendixe.pdf</xsl:element>
-                                    </xsl:element>
                                 </xsl:element>
                             </xsl:element>
+                            <xsl:element name="gmd:otherCitationDetails">
+                                 <xsl:element name="gco:CharacterString">https://www.fgdc.gov/policyandplanning/a-16/appendixe/20170324-ngda-themes-fgdc-sc-revised-appendixe.pdf</xsl:element>
+                                </xsl:element>
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>
