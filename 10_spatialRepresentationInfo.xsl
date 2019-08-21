@@ -30,7 +30,8 @@
                                 <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_GeometricObjectTypeCode</xsl:attribute>
                                
                                     <!-- <xsl:value-of select="/GPM/Spatial_Data_Organization_Information/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type"/> -->
-                                    <xsl:variable name="SDTSVAR" select="/GPM/Spatial_Data_Organization_Information/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type"/>
+                                    <xsl:variable name="SDTSVAR" select="/GPM/Spatial_Data_Organization_Information[1]/SDTS_Terms_Description/SDTS_Point_and_Vector_Object_Type"/>
+                                    <!--  <xsl:comment> SDTSVAR: <xsl:value-of select="$SDTSVAR"/> </xsl:comment>-->
                                     <xsl:choose>
                                         <xsl:when test="$SDTSVAR = 'Point'"> 
                                             <xsl:attribute name="codeListValue">point</xsl:attribute>
@@ -52,6 +53,9 @@
                                         </xsl:when>
                                         <xsl:when test="$SDTSVAR='String'">
                                             <xsl:attribute name="codeListValue">composite</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='curve'">
+                                            <xsl:attribute name="codeListValue">curve</xsl:attribute>
                                         </xsl:when>
                                         <xsl:when test="$SDTSVAR='Link'">
                                             <xsl:attribute name="codeListValue">curve</xsl:attribute>
@@ -105,6 +109,7 @@
                                             <xsl:attribute name="codeListValue">surface</xsl:attribute>
                                         </xsl:when>
                                         <xsl:otherwise>
+                                            <xsl:comment>In the otherwise</xsl:comment>
                                             <xsl:value-of select="$SDTSVAR"/>
                                         </xsl:otherwise>
                                     </xsl:choose>
