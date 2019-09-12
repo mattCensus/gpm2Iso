@@ -30,8 +30,8 @@
     
    
     <xsl:template name="gpm2GmdMetContact">
-      <!--   <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>
-        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment>--> 
+      <!--  -->  <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>
+        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment>
         <xsl:choose>
             <xsl:when test="/GPM/Metadata_Reference_Information/Point_of_Contact/Contact_Address">
                 <xsl:element name="gmd:contact">
@@ -52,6 +52,9 @@
             </xsl:when>
             <xsl:when test="contains($MetOrg,'U.S. Census Bureau')">
                  <xsl:call-template name="GeoDivPoc"/>
+            </xsl:when>
+            <xsl:when test="contains($MetOrg,'Spatial Data Collection and Products Branch')">
+                <xsl:call-template name="GeoSpatProdBranchPOC"/>
             </xsl:when>
             <xsl:otherwise>
              <!--   <xsl:comment> In the otherwise!!!!!!!!!!!!!</xsl:comment>--> 
@@ -138,7 +141,7 @@
     <xsl:template name="GeoSpatProdBranchPOC">
         <xsl:element name="gmd:contact">
             <xsl:attribute name="xlink:href">https://www.ngdc.noaa.gov/docucomp/a3ade798-946f-4d45-9dc9-b8e9a5d9866b </xsl:attribute>
-            <xsl:attribute name="xlink:title">originator - U.S. Department of Commerce, U.S. Census Bureau, Geography Division, Spatial Products Software Branch</xsl:attribute>
+            <xsl:attribute name="xlink:title">originator - U.S. Department of Commerce, U.S. Census Bureau, Geography Division, Spatial Data Collection and Products Branch</xsl:attribute>
         </xsl:element>
     </xsl:template>
     

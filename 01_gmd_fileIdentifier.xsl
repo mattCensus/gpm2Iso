@@ -55,6 +55,10 @@
                             <xsl:variable name="finalShp" select="concat($preGPP, '.gdb.iso.xml')"/>
                             <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalShp"/></xsl:element>
                         </xsl:when>
+                        <xsl:when test="contains($mrfFileId,'dbf')">
+                            <xsl:variable name="finalShp" select="concat($preGPP, '.dbf.iso.xml')"/>
+                            <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalShp"/></xsl:element>
+                        </xsl:when>
                         <xsl:otherwise>
                             <xsl:variable name="finalShp" select="concat($preGPP, '.shp.iso.xml')"/>
                             <xsl:element name="gco:CharacterString"><xsl:value-of select="$finalShp"/></xsl:element>

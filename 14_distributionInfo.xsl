@@ -94,7 +94,7 @@
                                     <xsl:variable name="netResName" select="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Digital_Form[2]/Network_Address[1]/Network_Resource_Name[1]"/>
                                     <xsl:choose>
                                        
-                                        <xsl:when  test="fn:contains($netResName,'time-series')">
+                                        <xsl:when  test="contains($netResName,'time-series')">
                                             <xsl:element name="gmd:function">
                                             <xsl:element name="gmd:CI_OnLineFunctionCode">
                                                 <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnlineFunctionCode</xsl:attribute>
