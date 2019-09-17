@@ -21,6 +21,7 @@
     </xd:doc>
     
     <xsl:template name="gpm2GmdDataSetURI">
+        <!-- <xsl:comment>This is the right one</xsl:comment> -->
         <xsl:element name="gmd:dataSetURI">                             
             <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Digital_Form[1]/Network_Address[1]/Network_Resource_Name[1]"/></xsl:element>
         </xsl:element>

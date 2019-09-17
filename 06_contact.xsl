@@ -30,8 +30,8 @@
     
    
     <xsl:template name="gpm2GmdMetContact">
-      <!--  -->  <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>
-        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment>
+      <!--    <xsl:comment>MetOrg: <xsl:value-of select="$MetOrg"/></xsl:comment>
+        <xsl:comment>DistOrg<xsl:value-of select="$DistOrg"/> </xsl:comment>-->
         <xsl:choose>
             <xsl:when test="/GPM/Metadata_Reference_Information/Point_of_Contact/Contact_Address">
                 <xsl:element name="gmd:contact">

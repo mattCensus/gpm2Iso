@@ -64,15 +64,16 @@
             <xsl:call-template name="gpm2GmdfileIdentifier"/>
             <xsl:call-template name="gpm2Gmdlanguage"/>
             <xsl:call-template name="gpm2GmdMetadataCharacterSet"/>
-            <xsl:if test="/GPM/Metadata_Reference_Information[1]/Metadata_Parent_Identifier[1]">
-                
-            <xsl:call-template name="gpm2GmdparentIdentifier"/>
+            
+            <xsl:if test="/GPM/Metadata_Reference_Information[1]/Metadata_Parent_Identifier[1]"> 
+                <xsl:call-template name="gpm2GmdparentIdentifier"/>
             </xsl:if>
             <xsl:call-template name="gpm2GmdHierarchyLevel"/>
             <xsl:call-template name="gpm2GmdMetContact"/>
             <xsl:call-template name="gpm2GmdMetDate"/>
             <xsl:call-template name="gpm2GmdMetStandardNameVer"/>
             <xsl:if test="/GPM/Identification_Information/Citation/Online_Linkage">
+                
                 <xsl:call-template name="gpm2GmdDataSetURI"/>
             </xsl:if>
           
