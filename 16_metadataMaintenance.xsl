@@ -73,7 +73,7 @@
                 
                 <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]">
                     <xsl:element name="gmd:maintenanceNote">
-                        <xsl:element name="gco:CharacterString">This dataset is currently a National Gesopatial Data Asset (NGDA) dataset. Next October, this
+                        <xsl:element name="gco:CharacterString">This dataset is currently a National Geospatial Data Asset (NGDA) dataset. Next October, this
                             dataset will be edited to remove all the NGDA related tags metadata tags</xsl:element>
                     </xsl:element>
                     
