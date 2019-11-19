@@ -208,13 +208,25 @@
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:element>
-                            <xsl:if test="contains($MetOrg,'U.S. Census Bureau')">
-                                <xsl:element name="gmd:facsimile">
+                            <xsl:choose>
+                                <xsl:when test="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Fax[1]">
+                                    <xsl:element name="gmd:facsimile">
+                                        <xsl:element name="gco:CharacterString">
+                                            <xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Point_of_Contact[1]/Contact_Fax[1]"/>
+                                        </xsl:element>
+                                    </xsl:element>
+                                </xsl:when>
+                                <xsl:when test="contains($MetOrg,'U.S. Census Bureau')">
+                                     <xsl:element name="gmd:facsimile">
                                     <xsl:element name="gco:CharacterString">301-763-4710</xsl:element>
                                 </xsl:element>
-                            </xsl:if>
+                                </xsl:when>
+                            </xsl:choose>
                         </xsl:element>
                     </xsl:element>
+                    
+                   
+                    
                     
                     <xsl:element name="gmd:address">
                         <xsl:element name="gmd:CI_Address">

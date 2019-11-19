@@ -109,6 +109,16 @@
                                     </xsl:element>
                                 </xsl:element>
                                 
+                                <xsl:if test="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Fax[1]">
+                                    <xsl:element name="gmd:CI_Telephone">  
+                                        <xsl:element name="gmd:facsimile">
+                                            <xsl:element name="gco:CharacterString">
+                                                <xsl:value-of select="/GPM/Identification_Information[1]/Point_of_Contact[1]/Contact_Fax[1]"/>
+                                             </xsl:element>    
+                                        </xsl:element>
+                                    </xsl:element>
+                                </xsl:if>
+                                
                                 <xsl:element name="gmd:address">
                                     <xsl:element name="gmd:CI_Address">
                                         
