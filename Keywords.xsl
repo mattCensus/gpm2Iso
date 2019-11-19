@@ -25,11 +25,12 @@
         <xsl:element name="gmd:descriptiveKeywords">
             <xsl:element name="gmd:MD_Keywords">
                 
-                <xsl:for-each select="/GPM/FGDC_Required/ISO_Theme/ISO_Keyword">
+               <!-- <xsl:for-each select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[1]">
+                    <xsl:comment>In the keywords!!!!!!!!!</xsl:comment>
                     <xsl:element name="gmd:keyword">
                         <xsl:element name="gco:CharacterString"><xsl:value-of select="."/></xsl:element>
                     </xsl:element>
-                </xsl:for-each>
+                </xsl:for-each> -->
                 
                 <xsl:element name="gmd:type">
                     <xsl:element name="gmd:MD_KeywordTypeCode">
@@ -68,20 +69,49 @@
 
 
     <xsl:template name="NGDAKeywords">
+      <xsl:variable name="NGDA1" select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[1]"/>
+        <xsl:variable name="NGDA2" select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[2]"/>
+        <xsl:variable name="NGDA3" select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[2]"/>
+        <xsl:variable name="NGDAPort1" select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[1]"/>
+        <xsl:variable name="NGDAPort2" select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[2]"/>
+        <xsl:variable name="NGDAPort3" select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[2]"/>
         <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]">
             <xsl:element name="gmd:descriptiveKeywords">
                 <xsl:element name="gmd:MD_Keywords">
-                    <xsl:element name="gmd:keyword">
-                        <xsl:element name="gco:CharacterString">NGDA</xsl:element>
-                    </xsl:element>
-                    <xsl:element name="gmd:keyword">
+                    
+                   <!--   <xsl:element name="gmd:keyword">
                         <xsl:element name="gco:CharacterString">
                             <xsl:value-of select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword[2]"/>
                         </xsl:element>
-                    </xsl:element>
-                    <xsl:element name="gmd:keyword">
-                        <xsl:element name="gco:CharacterString">National Geospatial Data Asset</xsl:element>
-                    </xsl:element>
+                        </xsl:element>-->
+                    <xsl:for-each select="/GPM/FGDC_Required[1]/NGDA_Info[1]/NGDA_Keyword">
+                        <xsl:element name="gmd:keyword">
+                            <xsl:element name="gco:CharacterString">
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:for-each>
+                   
+                    <xsl:choose>
+                        <xsl:when test="$NGDA1='NGDA'"></xsl:when>
+                        <xsl:when test="$NGDA2='NGDA'"></xsl:when>
+                        <xsl:when test="$NGDA3='NGDA'"></xsl:when>
+                        <xsl:otherwise>
+                            <xsl:element name="gmd:keyword">
+                                <xsl:element name="gco:CharacterString">NGDA</xsl:element>
+                            </xsl:element>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                     <xsl:choose>
+                         <xsl:when test="contains($NGDAPort1,'Portfolio')"></xsl:when>
+                         <xsl:when test="contains($NGDAPort2,'Portfolio')"></xsl:when>
+                         <xsl:when test="contains($NGDAPort3,'Portfolio')"></xsl:when>
+                        <xsl:otherwise>
+                            <xsl:element name="gmd:keyword">
+                                <xsl:element name="gco:CharacterString">NGDA Portfolio Themes</xsl:element>
+                            </xsl:element>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:element name="gmd:type">
                         <xsl:element name="gmd:MD_KeywordTypeCode">
                             <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode</xsl:attribute>
@@ -90,6 +120,7 @@
                     </xsl:element>
                     <xsl:element name="gmd:thesaurusName">
                         <xsl:element name="gmd:CI_Citation">
+                            
                             <xsl:element name="gmd:title">
                                 <xsl:element name="gco:CharacterString">NGDA Portfolio Themes</xsl:element>
                             </xsl:element>
