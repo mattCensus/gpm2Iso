@@ -183,10 +183,12 @@
                                      </xsl:element>
                                  </xsl:element>
                                  
-                                 <xsl:element name="srv:direction">
-                                     <xsl:element name="srv:SV_ParameterDirection"><xsl:value-of select="./Parameter_Direction"/></xsl:element>
-                                 </xsl:element>
-                                   
+                                 <xsl:if test="./Parameter_Direction[1]">
+                                     <xsl:element name="srv:direction">
+                                         <xsl:element name="srv:SV_ParameterDirection"><xsl:value-of select="./Parameter_Direction"/></xsl:element>
+                                     </xsl:element>
+                                 </xsl:if>
+                                     
                                      <xsl:element name="srv:description">
                                          <xsl:element name="gco:CharacterString">
                                              <xsl:value-of select="./Operation_Parameters/Parameter_Description[1]"/>
