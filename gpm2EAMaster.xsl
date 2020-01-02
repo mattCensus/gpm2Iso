@@ -65,6 +65,11 @@
                         <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information/Citation/Publication_Date"/></xsl:element>
                     </xsl:element>
                 </xsl:when>
+                <xsl:when test="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/Version">
+                    <xsl:element name="gmx:versionNumber">
+                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Entity_and_Attribute_Information[1]/Feature_Catalogue_Description[1]/Version[1]"/></xsl:element>
+                    </xsl:element>
+                </xsl:when>
             </xsl:choose>
             
             
@@ -85,7 +90,7 @@
             </xsl:element>
             
             <xsl:element name="gfc:producer">
-                <xsl:call-template name="CI_ResponsibleParty"/>
+                <xsl:call-template name="CI_ResponsiblePartyMRI"/>
             </xsl:element>
             
             <xsl:element name="gfc:featureType">
@@ -153,7 +158,7 @@
                                 </xsl:element>
                                 
                                 <xsl:variable name="DefRef" select="./Attribute_Definition_Source"/>
-                                <xsl:comment>DefRef:<xsl:value-of select="$DefRef"/></xsl:comment>
+                               <!--  <xsl:comment>DefRef:<xsl:value-of select="$DefRef"/></xsl:comment> -->
                                 <xsl:choose>
                                     <xsl:when test="contains($DefRef,'Census')">
                                        <!--   <xsl:comment>Census!!!!!!!!!!!!!!!!!</xsl:comment>-->
@@ -199,7 +204,7 @@
                                         </xsl:element>
                                     </xsl:when>
                                    <xsl:otherwise>
-                                       <xsl:comment>In the otherwise!!!!!!!!!!</xsl:comment>
+                                      <!--   <xsl:comment>In the otherwise!!!!!!!!!!</xsl:comment>-->
                                        <xsl:element name="gfc:definitionReference">
                                            <xsl:element name="gfc:FC_DefinitionReference">
                                                <xsl:element name="gfc:definitionSource">
@@ -284,7 +289,7 @@
                                                         </xsl:element>
                                                     </xsl:when>
                                                     <xsl:otherwise>
-                                                        <xsl:comment>In the otherwise!!!!!!!!!!</xsl:comment>
+                                                       <!--   <xsl:comment>In the otherwise!!!!!!!!!!</xsl:comment>-->
                                                         <xsl:element name="gfc:definitionReference">
                                                             <xsl:element name="gfc:FC_DefinitionReference">
                                                                 <xsl:element name="gfc:definitionSource">
@@ -384,7 +389,7 @@
                                                     </xsl:element>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <xsl:comment>In the otherwise!!!!!!!!!!</xsl:comment>
+                                                   <!--   <xsl:comment>In the otherwise!!!!!!!!!!</xsl:comment>-->
                                                     <xsl:element name="gfc:definitionReference">
                                                         <xsl:element name="gfc:FC_DefinitionReference">
                                                             <xsl:element name="gfc:definitionSource">
