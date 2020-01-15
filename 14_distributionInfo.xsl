@@ -88,7 +88,7 @@
                                     </xsl:element>
                                     <xsl:if test="./Network_Address/Network_Resource_Description">
                                         <xsl:element name="gmd:description">
-                                            <xsl:element name="gco:CharacterString"><xsl:value-of select="../Network_Resource_Description"/></xsl:element>
+                                            <xsl:element name="gco:CharacterString"><xsl:value-of select="./Network_Address[1]/Network_Resource_Description[1]"/></xsl:element>
                                         </xsl:element>
                                     </xsl:if>
                                     <xsl:variable name="netResName" select="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Digital_Form[2]/Network_Address[1]/Network_Resource_Name[1]"/>
