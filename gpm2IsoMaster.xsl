@@ -20,6 +20,7 @@
     <xsl:import href="../gpm2iso/06_contact.xsl"/>
     <xsl:import href="../gpm2iso/07_date.xsl"/>
     <xsl:import href="../gpm2iso/08_metadataStandardName.xsl"/>
+ 
     <xsl:import href="../gpm2iso/09_dataSetURI.xsl"/>
     <xsl:import href="../gpm2iso/10_spatialRepresentationInfo.xsl"/>
     <xsl:import href="../gpm2iso/11_referenceSystemInfo.xsl"/>
@@ -72,6 +73,7 @@
             <xsl:call-template name="gpm2GmdMetContact"/>
             <xsl:call-template name="gpm2GmdMetDate"/>
             <xsl:call-template name="gpm2GmdMetStandardNameVer"/>
+            
             <xsl:if test="/GPM/Identification_Information/Citation/Online_Linkage">
                 
                 <xsl:call-template name="gpm2GmdDataSetURI"/>

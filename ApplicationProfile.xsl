@@ -11,19 +11,27 @@
     xmlns:grp="http://www.altova.com/Mapforce/grouping"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
     exclude-result-prefixes="fn grp vmf xs xsi xsl xd" xmlns="http://www.isotc211.org/2005/gmi">
+    
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p>gpm2iso/09_dataSetURI.xsl</xd:p>
-            <xd:p><xd:b>Created on:</xd:b> Jan 5, 2017</xd:p>
+            <xd:p>gpm2iso/ApplicationProfile.xsl</xd:p>
+            <xd:p><xd:b>Created on:</xd:b> Jan 3, 2017</xd:p>
             <xd:p><xd:b>Author:</xd:b> mccre004</xd:p>
             <xd:p></xd:p>
         </xd:desc>
     </xd:doc>
+    <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" omit-xml-declaration="no" />
+    <xsl:strip-space elements="*"/>
     
-    <xsl:template name="gpm2GmdDataSetURI">
-         <!--  <xsl:comment>This is the right one</xsl:comment>-->
-        <xsl:element name="gmd:dataSetURI">                             
-            <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Digital_Form[1]/Network_Address[1]/Network_Resource_Name[1]"/></xsl:element>
-        </xsl:element>
+    <xsl:template name="ApplicationProfile">
+        <xsl:param name="digitalForm"/>
+        <!-- /GPM/Distribution_Information/Standard_Order_Process/Digital_Form -->
+        <xsl:choose>
+            <xsl:when test="./Network_Address[1]/Application_Profile[1]">
+                <xsl:element name="gmd:applicationProfile">
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Network_Address[1]/Application_Profile[1]"/></xsl:element>
+                </xsl:element>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

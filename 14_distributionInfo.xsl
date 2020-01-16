@@ -14,6 +14,7 @@
     <xsl:import href="../gpm2iso/06_contact.xsl"/>
     <xsl:import href="../gpm2iso/NGDAWebServices.xsl"/>
     <xsl:import href="../gpm2iso/RESTServices.xsl"/>
+    <xsl:import href="../gpm2iso/ApplicationProfile.xsl"/>
     
     <xd:doc scope="stylesheet">
         <xd:desc>
@@ -74,6 +75,7 @@
                 </xsl:element>    
              <!--   <xsl:comment>In the for each!!!!!!!!!!!!!!!!</xsl:comment> --> 
                 <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form">
+                    <xsl:variable name="digitalForm" select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form"></xsl:variable>
                     <xsl:element name="gmd:transferOptions">
                         <xsl:element name="gmd:MD_DigitalTransferOptions">
                             <xsl:if test="./Transfer_Size">
@@ -86,6 +88,9 @@
                                     <xsl:element name="gmd:linkage">
                                         <xsl:element name="gmd:URL"> <xsl:value-of select="./Network_Address/Network_Resource_Name[1]"/></xsl:element>
                                     </xsl:element>
+                                    <xsl:call-template name="ApplicationProfile">
+                                        <xsl:with-param name="digitalForm" select="$digitalForm"></xsl:with-param>
+                                    </xsl:call-template>
                                     <xsl:if test="./Network_Address/Network_Resource_Description">
                                         <xsl:element name="gmd:description">
                                             <xsl:element name="gco:CharacterString"><xsl:value-of select="./Network_Address[1]/Network_Resource_Description[1]"/></xsl:element>
