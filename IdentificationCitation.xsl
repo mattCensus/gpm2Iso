@@ -24,6 +24,8 @@
     </xd:doc>
     
     <xsl:template name="gpm2GmdIdentificationCit">
+        <xsl:variable name="GPP" select="/GPM/Identification_Information[1]/Citation[1]/Geospatial_Data_Presentation_Form[1]"/>
+       <!--   <xsl:comment>GPP (pre template) <xsl:value-of select="$GPP"/></xsl:comment>-->
         <xsl:element name="gmd:citation">
             <xsl:element name="gmd:CI_Citation">
                 <xsl:element name="gmd:title">
@@ -62,7 +64,9 @@
                 <xsl:element name="gmd:presentationForm">
                     <xsl:element name="gmd:CI_PresentationFormCode">
                         <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_PresentationFormCode</xsl:attribute>
-                        <xsl:attribute name="codeListValue"><xsl:value-of select="/GPM/Identification_Information[1]/Citation[1]/Geospatial_Data_Presentation_Form[1]"></xsl:value-of></xsl:attribute>
+                        <xsl:attribute name="codeListValue"><xsl:call-template name="GeoSpatPresForm">
+                            <xsl:with-param name="GPP" select="$GPP"/>
+                        </xsl:call-template></xsl:attribute>
                     </xsl:element>
                 </xsl:element>
                 
@@ -226,5 +230,25 @@
             </xsl:otherwise>
         </xsl:choose>
         </xsl:for-each>
+    </xsl:template>
+    
+    <xsl:template name="GeoSpatPresForm">
+        <xsl:param name="GPP"/>
+     <!-- <xsl:comment>In the GPP Template</xsl:comment>
+      <xsl:comment>GPP; <xsl:value-of select="$GPP"/></xsl:comment> -->
+        <xsl:choose>
+            <xsl:when test="contains($GPP,'mapHardcopy')">
+                <xsl:value-of select="$GPP"/>
+            </xsl:when>
+            <xsl:when test="contains($GPP,'mapDigital')">
+                <xsl:value-of select="$GPP"/>
+            </xsl:when>
+            <xsl:when test="contains($GPP,'mapDigital')">
+                mapHardcopy
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$GPP"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
