@@ -149,7 +149,7 @@
                 
             
              <xsl:for-each select="/GPM/Computer_Service_Information/Contains_Operations">
-                 <xsl:comment>Here</xsl:comment>
+                 <!--  <xsl:comment>Here</xsl:comment>-->
                  <xsl:element name="srv:containsOperations">
                      <xsl:element name="srv:SV_OperationMetadata">
                      

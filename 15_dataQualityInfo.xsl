@@ -117,10 +117,10 @@
                 </xsl:if>
                 
                 <xsl:if test="/GPM/Data_Quality_Information[1]/Logical_Consistency_Report[1]">
-                    <xsl:comment>Right Place</xsl:comment>
+                    <!--  <xsl:comment>Right Place</xsl:comment>-->
                     <xsl:element name="gmd:report">
                         <xsl:element name="gmd:DQ_ConceptualConsistency">
-                            <xsl:comment>Right Place2</xsl:comment>
+                            <!--  <xsl:comment>Right Place2</xsl:comment>-->
                             <xsl:if test="//GPM/Data_Quality_Information[1]/Logical_Consistency_Report[1]/Test_Report[1]/Result[1]">
                                 <xsl:if test="//GPM/Data_Quality_Information[1]/Logical_Consistency_Report[1]/Test_Report[1]/Measure[1]">
                                     <xsl:element name="gmd:nameOfMeasure">
@@ -129,7 +129,7 @@
                                         </xsl:element>
                                     </xsl:element>
                                 </xsl:if>
-                                <xsl:comment>Right Place3</xsl:comment>
+                                <!--  <xsl:comment>Right Place3</xsl:comment>-->
                                 <xsl:if test="/GPM/Data_Quality_Information[1]/Logical_Consistency_Report[1]/Test_Report[1]/Evaluation[1]">
                                     <xsl:element name="gmd:evaluationMethodDescription">
                                         <xsl:element name="gco:CharacterString">
@@ -137,9 +137,9 @@
                                         </xsl:element>
                                     </xsl:element>
                                 </xsl:if>
-                                <xsl:comment>Right Place4</xsl:comment>
+                                <!--  <xsl:comment>Right Place4</xsl:comment>-->
                                 <xsl:element name="gmd:result">
-                                    <xsl:comment>Right Place5</xsl:comment>
+                                    <!--  <xsl:comment>Right Place5</xsl:comment>-->
                                     <xsl:element name="gmd:DQ_ConformanceResult">
                                         <xsl:element name="gmd:specification">
                                             <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
