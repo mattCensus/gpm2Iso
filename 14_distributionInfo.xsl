@@ -28,34 +28,34 @@
     <xsl:template name="gpm2GmdDistributionInfo">
         <xsl:element name="gmd:distributionInfo">
             <xsl:element name="gmd:MD_Distribution">
-            <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form/Format_Name">
-                <xsl:element name="gmd:distributionFormat">
-                    <xsl:element name="gmd:MD_Format">
-                    <xsl:element name="gmd:name">
-                        <xsl:element name="gco:CharacterString"><xsl:value-of select="."/></xsl:element>
+                <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form/Format_Name">
+                    <xsl:element name="gmd:distributionFormat">
+                        <xsl:element name="gmd:MD_Format">
+                            <xsl:element name="gmd:name">
+                                <xsl:element name="gco:CharacterString"><xsl:value-of select="."/></xsl:element>
+                            </xsl:element>
+                            
+                            
+                            <xsl:choose>
+                                <xsl:when test="../Format_Version_Date">
+                                    <xsl:element name="gmd:version">
+                                        <xsl:element name="gco:CharacterString"> <xsl:value-of select="../Format_Version_Date"/></xsl:element>
+                                    </xsl:element>
+                                </xsl:when>
+                                <xsl:when test="../Format_Version_Number">
+                                    <xsl:element name="gmd:version">
+                                        <xsl:element name="gco:CharacterString"> <xsl:value-of select="../Format_Version_Number"/></xsl:element>
+                                    </xsl:element>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:element name="gmd:version">
+                                        <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
+                                    </xsl:element>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:element>
                     </xsl:element>
-                    
-               
-                <xsl:choose>
-                    <xsl:when test="../Format_Version_Date">
-                        <xsl:element name="gmd:version">
-                            <xsl:element name="gco:CharacterString"> <xsl:value-of select="../Format_Version_Date"/></xsl:element>
-                        </xsl:element>
-                    </xsl:when>
-                    <xsl:when test="../Format_Version_Number">
-                        <xsl:element name="gmd:version">
-                            <xsl:element name="gco:CharacterString"> <xsl:value-of select="../Format_Version_Number"/></xsl:element>
-                        </xsl:element>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:element name="gmd:version">
-                            <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
-                        </xsl:element>
-                    </xsl:otherwise>
-                </xsl:choose>
-                    </xsl:element>
-                </xsl:element>
-            </xsl:for-each>
+                </xsl:for-each>
                 <xsl:element name="gmd:distributor">
                     <xsl:element name="gmd:MD_Distributor">
                         <xsl:call-template name="gpm2GmdDisContact"/>
@@ -65,17 +65,18 @@
                                     <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information[1]/Standard_Order_Process/Fees"/></xsl:element>
                                 </xsl:element>
                                 <xsl:if test="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Ordering_Instructions[1]">
-                                <xsl:element name="gmd:orderingInstructions">
-                                    <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information/Standard_Order_Process/Ordering_Instructions"/></xsl:element>
-                                </xsl:element>
+                                    <xsl:element name="gmd:orderingInstructions">
+                                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Distribution_Information/Standard_Order_Process/Ordering_Instructions"/></xsl:element>
+                                    </xsl:element>
                                 </xsl:if>
                             </xsl:element>
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>    
-             <!--   <xsl:comment>In the for each!!!!!!!!!!!!!!!!</xsl:comment> --> 
+                <!--   <xsl:comment>In the for each!!!!!!!!!!!!!!!!</xsl:comment> --> 
                 <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form">
                     <xsl:variable name="digitalForm" select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form"></xsl:variable>
+                    <xsl:variable name="netResName" select="./Network_Address[1]/Network_Resource_Name[1]"/>
                     <xsl:element name="gmd:transferOptions">
                         <xsl:element name="gmd:MD_DigitalTransferOptions">
                             <xsl:if test="./Transfer_Size">
@@ -88,6 +89,9 @@
                                     <xsl:element name="gmd:linkage">
                                         <xsl:element name="gmd:URL"> <xsl:value-of select="./Network_Address/Network_Resource_Name[1]"/></xsl:element>
                                     </xsl:element>
+                                    <xsl:call-template name="protocol">
+                                        <xsl:with-param name="NetWorkRes" select="$netResName"/>
+                                    </xsl:call-template>
                                     <xsl:call-template name="ApplicationProfile">
                                         <xsl:with-param name="digitalForm" select="$digitalForm"></xsl:with-param>
                                     </xsl:call-template>
@@ -96,25 +100,33 @@
                                             <xsl:element name="gco:CharacterString"><xsl:value-of select="./Network_Address[1]/Network_Resource_Description[1]"/></xsl:element>
                                         </xsl:element>
                                     </xsl:if>
-                                    <xsl:variable name="netResName" select="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Digital_Form[2]/Network_Address[1]/Network_Resource_Name[1]"/>
+                                   
                                     <xsl:choose>
-                                       
+                                        
                                         <xsl:when  test="contains($netResName,'time-series')">
                                             <xsl:element name="gmd:function">
-                                            <xsl:element name="gmd:CI_OnLineFunctionCode">
-                                                <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnlineFunctionCode</xsl:attribute>
-                                                <xsl:attribute name="codeListValue">search</xsl:attribute>download
+                                                <xsl:element name="gmd:CI_OnLineFunctionCode">
+                                                    <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnlineFunctionCode</xsl:attribute>
+                                                    <xsl:attribute name="codeListValue">search</xsl:attribute>search
+                                                </xsl:element>
                                             </xsl:element>
+                                        </xsl:when>
+                                        <xsl:when  test="contains($netResName,'tigerweb')">
+                                            <xsl:element name="gmd:function">
+                                                <xsl:element name="gmd:CI_OnLineFunctionCode">
+                                                    <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnlineFunctionCode</xsl:attribute>
+                                                    <xsl:attribute name="codeListValue">search</xsl:attribute>search
+                                                </xsl:element>
                                             </xsl:element>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                    <xsl:element name="gmd:function">
-                                        <xsl:element name="gmd:CI_OnLineFunctionCode">
-                                            <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnlineFunctionCode</xsl:attribute>
-                                            <xsl:attribute name="codeListValue">download</xsl:attribute>download
-                                        </xsl:element>
-                                    </xsl:element>
-                                   </xsl:otherwise>
+                                            <xsl:element name="gmd:function">
+                                                <xsl:element name="gmd:CI_OnLineFunctionCode">
+                                                    <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnlineFunctionCode</xsl:attribute>
+                                                    <xsl:attribute name="codeListValue">download!!!!!</xsl:attribute>download!!!
+                                                </xsl:element>
+                                            </xsl:element>
+                                        </xsl:otherwise>
                                     </xsl:choose>
                                     
                                 </xsl:element>
@@ -122,17 +134,17 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:for-each>
-              <!--  <xsl:comment>outside the for each loop!!!!!!!!!!!!!!!!</xsl:comment> -->
+                <!--  <xsl:comment>outside the for each loop!!!!!!!!!!!!!!!!</xsl:comment> -->
                 
                 <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]/GETMAP_URL[1]">
-                <xsl:call-template name="WMSNGDA"/>
+                    <xsl:call-template name="WMSNGDA"/>
                 </xsl:if>
                 
                 <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]/REST_URL[1]">
                     <xsl:call-template name="RestNGDA"/>
                 </xsl:if>
                 
-        </xsl:element>
+            </xsl:element>
         </xsl:element>
     </xsl:template>
     

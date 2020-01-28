@@ -31,7 +31,7 @@ exclude-result-prefixes="fn grp vmf xs xsi xsl xd" xmlns="http://www.isotc211.or
         <xsl:variable name="levelOfGeo" select="substring-before($postComma2,',')"/>
         <xsl:variable name="theme" select="substring-after($postComma2,',')"/>
         
-        <xsl:comment>Theme:<xsl:value-of select="$theme"/></xsl:comment>
+        <!--  <xsl:comment>Theme:<xsl:value-of select="$theme"/></xsl:comment>-->
         <xsl:element name="gmd:transferOptions">
             <xsl:element name="gmd:MD_DigitalTransferOptions">
                 <xsl:element name="gmd:onLine">

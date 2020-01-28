@@ -22,14 +22,32 @@
     </xd:doc>
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" omit-xml-declaration="no" />
     <xsl:strip-space elements="*"/>
-    
+ 
+ <xsl:template name='protocol'>
+     <xsl:param name="NetWorkRes"/>
+     <xsl:variable name="protocol" select="substring-before($NetWorkRes,':')"/>
+        
+     
+      <xsl:element name="gmd:protocol">
+          <xsl:element name="gco:CharacterString"><xsl:value-of select="$protocol"/></xsl:element>
+      </xsl:element>
+ </xsl:template>
+ 
     <xsl:template name="ApplicationProfile">
+     
         <xsl:param name="digitalForm"/>
-        <!-- /GPM/Distribution_Information/Standard_Order_Process/Digital_Form -->
+            <!--<xsl:comment>In the application Profile Template</xsl:comment>
+        /GPM/Distribution_Information/Standard_Order_Process/Digital_Form -->
+        <xsl:variable name="format" select="./Format_Name"/>
         <xsl:choose>
             <xsl:when test="./Network_Address[1]/Application_Profile[1]">
                 <xsl:element name="gmd:applicationProfile">
                     <xsl:element name="gco:CharacterString"><xsl:value-of select="./Network_Address[1]/Application_Profile[1]"/></xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($format,'KML')">
+                <xsl:element name="gmd:applicationProfile">
+                    <xsl:element name="gco:CharacterString">http://opengis.net/spec/kml</xsl:element>
                 </xsl:element>
             </xsl:when>
         </xsl:choose>

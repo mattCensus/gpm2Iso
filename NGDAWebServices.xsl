@@ -81,10 +81,11 @@
 
 
 <xsl:template name="downloadFunction">
+    <!--  <xsl:comment>In the WMSNGDA template!!!!!!!!!!!!!!!</xsl:comment>-->
     <xsl:element name="gmd:function">
         <xsl:element name="gmd:CI_OnLineFunctionCode">
             <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnlineFunctionCode</xsl:attribute>
-            <xsl:attribute name="codeListValue">download</xsl:attribute>download
+            <xsl:attribute name="codeListValue">search</xsl:attribute>search
         </xsl:element>
     </xsl:element>
 </xsl:template>
