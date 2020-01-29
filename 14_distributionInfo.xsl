@@ -77,6 +77,7 @@
                 <xsl:for-each select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form">
                     <xsl:variable name="digitalForm" select="/GPM/Distribution_Information/Standard_Order_Process/Digital_Form"></xsl:variable>
                     <xsl:variable name="netResName" select="./Network_Address[1]/Network_Resource_Name[1]"/>
+                    <xsl:variable name="tigerURLA" select="substring-after($netResName,'http')"/>
                     <xsl:element name="gmd:transferOptions">
                         <xsl:element name="gmd:MD_DigitalTransferOptions">
                             <xsl:if test="./Transfer_Size">
@@ -93,7 +94,8 @@
                                         <xsl:with-param name="NetWorkRes" select="$netResName"/>
                                     </xsl:call-template>
                                     <xsl:call-template name="ApplicationProfile">
-                                        <xsl:with-param name="digitalForm" select="$digitalForm"></xsl:with-param>
+                                        <!-- <xsl:with-param name="digitalForm" select="$digitalForm"/> -->
+                                        <xsl:with-param name="netWorkRes" select="$netResName"/>
                                     </xsl:call-template>
                                     <xsl:if test="./Network_Address/Network_Resource_Description">
                                         <xsl:element name="gmd:description">

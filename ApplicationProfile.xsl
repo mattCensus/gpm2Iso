@@ -35,10 +35,15 @@
  
     <xsl:template name="ApplicationProfile">
      
-        <xsl:param name="digitalForm"/>
-            <!--<xsl:comment>In the application Profile Template</xsl:comment>
-        /GPM/Distribution_Information/Standard_Order_Process/Digital_Form -->
+      <!--   <xsl:param name="digitalForm"/> -->
+        <xsl:param name="netWorkRes"/>
+            <!--  --> <xsl:comment>In the application Profile Template</xsl:comment>
+      
         <xsl:variable name="format" select="./Format_Name"/>
+        
+        <!-- <xsl:comment> format:  <xsl:value-of select="$format"/></xsl:comment>
+          <xsl:comment>digital form:  <xsl:value-of select="$digitalForm"/></xsl:comment>
+      <xsl:variable name="tigerURL" select="fn:substring-after($digitalForm,'http')"/> -->
         <xsl:choose>
             <xsl:when test="./Network_Address[1]/Application_Profile[1]">
                 <xsl:element name="gmd:applicationProfile">
@@ -48,6 +53,16 @@
             <xsl:when test="contains($format,'KML')">
                 <xsl:element name="gmd:applicationProfile">
                     <xsl:element name="gco:CharacterString">http://opengis.net/spec/kml</xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($format,'WMS')">
+                <xsl:element name="gmd:applicationProfile">
+                    <xsl:element name="gco:CharacterString">http://opengis.net/spec/wms</xsl:element>
+                </xsl:element>
+            </xsl:when>
+          <!--   --> <xsl:when test="contains($netWorkRes,'tigerweb')">
+                <xsl:element name="gmd:applicationProfile">
+                    <xsl:element name="gco:CharacterString">http://opengis.net/spec/wms</xsl:element>
                 </xsl:element>
             </xsl:when>
         </xsl:choose>
