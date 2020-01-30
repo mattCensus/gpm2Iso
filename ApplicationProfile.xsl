@@ -37,7 +37,7 @@
      
       <!--   <xsl:param name="digitalForm"/> -->
         <xsl:param name="netWorkRes"/>
-            <!--  --> <xsl:comment>In the application Profile Template</xsl:comment>
+            <!--   <xsl:comment>In the application Profile Template</xsl:comment>-->
       
         <xsl:variable name="format" select="./Format_Name"/>
         

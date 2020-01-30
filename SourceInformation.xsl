@@ -132,7 +132,7 @@
                                                          <xsl:variable name="sorAbbr" select="./Source_Citation_Abbreviation[1]"/>
                                                          <xsl:variable name="SorTwo" select="translate($sorAbbr,' ','')"/>
                                                          <xsl:variable name="SorThree" select="translate($SorTwo,'-','')"/>
-                                                         <xsl:comment> BegDate: <xsl:value-of select="$BegDate"></xsl:value-of></xsl:comment>
+                                                         <!--  <xsl:comment> BegDate: <xsl:value-of select="$BegDate"></xsl:value-of></xsl:comment>-->
                                                          <xsl:choose>
                                                              <xsl:when test="contains($BegDate,'Unknown')">
                                                                  <xsl:variable name="finalTitle" select="concat('Source',$SorThree,$TitleB,$BegDate)"/>
@@ -160,7 +160,7 @@
                                                                  </xsl:element>
                                                              </xsl:when>
                                                              <xsl:when test="not($BegDate =$EndDate)">
-                                                                 <xsl:comment>Two dates not equal Number 2dd</xsl:comment> 
+                                                                <!--   <xsl:comment>Two dates not equal Number 2dd</xsl:comment> -->
                                                               
                                                                  
                                                                  <!--  <xsl:comment>TitleB: <xsl:value-of select="$TitleB"/></xsl:comment>-->
