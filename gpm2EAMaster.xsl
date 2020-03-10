@@ -131,18 +131,34 @@
                                     <xsl:choose>
                                         <xsl:when test="./Attribute_Domain_Values/Range_Domain">
                                             <xsl:for-each select="./Attribute_Domain_Values/Range_Domain">
+                            
                                                 <xsl:element name="gco:Multiplicity">
                                                     <xsl:element name="gco:range">
                                                         <xsl:element name="gco:MultiplicityRange">
                                                             
                                                             <xsl:element name="gco:lower">
-                                                                <xsl:element name="gco:Integer"><xsl:value-of select="./Range_Domain_Minimum"/></xsl:element>
+                                                                <xsl:element name="gco:Integer"><!-- <xsl:value-of select="./Range_Domain_Minimum"/> -->
+                                                                    <xsl:value-of select="floor(./Range_Domain_Minimum)*(./Range_Domain_Minimum >=0) + ceiling(./Range_Domain_Minimum) * not(./Range_Domain_Minimum>=0)"/>
+                                                                </xsl:element>
                                                             </xsl:element>
                                                             
                                                             <xsl:element name="gco:upper">
                                                                 <xsl:variable name="Upper" select="./Range_Domain_Maximum"/>
-                                                                <xsl:variable name="UnLinInt" select="translate($Upper,',','')"></xsl:variable>
-                                                                <xsl:element name="gco:UnlimitedInteger"><xsl:value-of select="$UnLinInt"/></xsl:element>
+                                                               
+                                                                <xsl:element name="gco:UnlimitedInteger"><!--  -->
+                                                                    <xsl:choose>
+                                                                        <xsl:when test="contains($Upper,',')">
+                                                                             <xsl:variable name="UnLinInt" select="translate($Upper,',','')"/>
+                                                                            <xsl:value-of select="$UnLinInt"/>
+                                                                        </xsl:when>
+                                                                        <xsl:otherwise>
+                                                                            <xsl:value-of select="floor($Upper)* ($Upper>=0) + ceiling($Upper) * not($Upper>=0)"/>
+                                                                        </xsl:otherwise>
+                                                                    </xsl:choose>
+                                                                    
+                                                                    
+                                                                    
+                                                                </xsl:element>
                                                             </xsl:element>
                                                             
                                                         </xsl:element>
