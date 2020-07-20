@@ -137,8 +137,9 @@
                                                         <xsl:element name="gco:MultiplicityRange">
                                                             
                                                             <xsl:element name="gco:lower">
-                                                                <xsl:element name="gco:Integer"><!-- <xsl:value-of select="./Range_Domain_Minimum"/> -->
-                                                                    <xsl:value-of select="floor(./Range_Domain_Minimum)*(./Range_Domain_Minimum >=0) + ceiling(./Range_Domain_Minimum) * not(./Range_Domain_Minimum>=0)"/>
+                                                                <xsl:element name="gco:Integer">
+                                                                    <!-- --><xsl:value-of select="./Range_Domain_Minimum"/> 
+                                                                    <!--  <xsl:value-of select="floor(./Range_Domain_Minimum)*(./Range_Domain_Minimum >=0) + ceiling(./Range_Domain_Minimum) * not(./Range_Domain_Minimum>=0)"/>  -->
                                                                 </xsl:element>
                                                             </xsl:element>
                                                             
@@ -146,7 +147,7 @@
                                                                 <xsl:variable name="Upper" select="./Range_Domain_Maximum"/>
                                                                
                                                                 <xsl:element name="gco:UnlimitedInteger"><!--  -->
-                                                                    <xsl:choose>
+                                                                  <!--  <xsl:choose>
                                                                         <xsl:when test="contains($Upper,',')">
                                                                              <xsl:variable name="UnLinInt" select="translate($Upper,',','')"/>
                                                                             <xsl:value-of select="$UnLinInt"/>
@@ -154,8 +155,8 @@
                                                                         <xsl:otherwise>
                                                                             <xsl:value-of select="floor($Upper)* ($Upper>=0) + ceiling($Upper) * not($Upper>=0)"/>
                                                                         </xsl:otherwise>
-                                                                    </xsl:choose>
-                                                                    
+                                                                    </xsl:choose> --> 
+                                                                    <xsl:value-of select="$Upper"/>
                                                                     
                                                                     
                                                                 </xsl:element>
