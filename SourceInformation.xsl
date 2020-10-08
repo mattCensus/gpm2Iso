@@ -79,6 +79,9 @@
                                                      <xsl:when test="contains($DateType,'Unknown')">
                                                          <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
                                                      </xsl:when>
+                                                     <xsl:when test="fn:contains($DateType,'Unpublished material')">
+                                                         <xsl:attribute name="gco:nilReason">withheld</xsl:attribute>
+                                                     </xsl:when>
                                                      <!--   <xsl:otherwise>
                                              <xsl:element name="gco:Date"> <xsl:value-of select="./Citation/Publication_Date"/> </xsl:element>
                                          </xsl:otherwise>-->
@@ -121,12 +124,13 @@
                                              <xsl:element name="gmd:temporalElement">
                                                  <xsl:element name="gmd:EX_TemporalExtent">
                                                      <xsl:element name="gmd:extent">
-                                                         <xsl:variable name="BegDate" select="./Time_Period_of_Content/Range_Of_Dates/Beginning_Date"/>
-                                                         <xsl:variable name="EndDate" select="./Time_Period_of_Content/Range_Of_Dates/Ending_Date"/>
+                                                         <xsl:variable name="BegDate" select="./Time_Period_of_Content/Range_of_Dates/Beginning_Date"/>
+                                                         <xsl:variable name="EndDate" select="./Time_Period_of_Content/Range_of_Dates/Ending_Date"/>
                                                          <xsl:variable name="TimePeriodNameA" select="./Source_Citation_Abbreviation"/>
                                                          <xsl:variable name="TimeTitle" select="./Citation/Title"></xsl:variable>
                                                          <xsl:variable name="AppCheck" select="./Source_Citation_Abbreviation"/>
                                                          <xsl:variable name="Title" select="./Citation/Title"/>
+                                                         <xsl:variable name="Orig" select="./Citation/Originator"/>
                                                          <xsl:variable name="TitleB" select="substring($Title,0,5)"/>
                                                          
                                                          <xsl:variable name="sorAbbr" select="./Source_Citation_Abbreviation[1]"/>
@@ -142,6 +146,12 @@
                                                                          <xsl:when test="contains($Title,'Alaska ADOT')">
                                                                              <xsl:comment>Alaska</xsl:comment>
                                                                              <xsl:attribute name="gml:id">AlaskaADOT</xsl:attribute>
+                                                                         </xsl:when>
+                                                                         <xsl:when test="contains($Orig,'6178 USGS - National Hydrography')">
+                                                                             <xsl:attribute name="gml:id">NHD6178</xsl:attribute>
+                                                                         </xsl:when>
+                                                                         <xsl:when test="contains($Orig,'6188 USGS - National Hydrography')">
+                                                                             <xsl:attribute name="gml:id">NHD6188</xsl:attribute>
                                                                          </xsl:when>
                                                                          <xsl:when test="contains($finalTitle,'/')"> 
                                                                              <xsl:variable name="preSlash" select="substring-before($finalTitle,'/')"/>
@@ -166,12 +176,23 @@
                                                                  <!--  <xsl:comment>TitleB: <xsl:value-of select="$TitleB"/></xsl:comment>-->
                                                                  <xsl:variable name="finalTitle" select="concat('Source',$SorThree,$TitleB,$BegDate)"/>
                                                                  <xsl:variable name="timeId" select="substring($Title,0,5)"/>
+                                                                 <xsl:comment>Originator <xsl:value-of select="$Orig"/></xsl:comment>
                                                                  <xsl:element name="gml:TimePeriod">
-                                                                    
+                                                                   
                                                                      <xsl:choose>
                                                                          <xsl:when test="contains($Title,'Alaska ADOT')">
                                                                              <xsl:comment>Alaska</xsl:comment>
                                                                              <xsl:attribute name="gml:id">AlaskaADOT</xsl:attribute>
+                                                                         </xsl:when>
+                                                                         <xsl:when test="contains($Orig,'6178 USGS - National Hydrography')">
+                                                                             <xsl:attribute name="gml:id">NHD6178</xsl:attribute>
+                                                                         </xsl:when>
+                                                                         <xsl:when test="contains($Orig,'6188 USGS - National')">
+                                                                             <xsl:comment>NHD6188</xsl:comment>
+                                                                             <xsl:attribute name="gml:id">NHD6188</xsl:attribute>
+                                                                         </xsl:when>
+                                                                         <xsl:when test="contains($Orig,'7178 USGS - National Hydrography')">
+                                                                             <xsl:attribute name="gml:id">NHD7178</xsl:attribute>
                                                                          </xsl:when>
                                                                          <xsl:when test="contains($finalTitle,'/')"> 
                                                                              <xsl:variable name="preSlash" select="substring-before($finalTitle,'/')"/>
@@ -194,11 +215,22 @@
                                                              <xsl:when test="$BegDate =$EndDate">
                                                                  <xsl:variable name="finalTitle" select="concat('Source',$SorThree,$TitleB,$BegDate)"/>
                                                                  <xsl:variable name="timeId" select="substring($Title,0,5)"/>
+                                                                 
                                                                      <xsl:element name="gml:TimeInstant">
                                                                          <xsl:choose>
                                                                              <xsl:when test="contains($Title,'Alaska ADOT')">
                                                                                  <xsl:comment>Alaska</xsl:comment>
                                                                                  <xsl:attribute name="gml:id">AlaskaADOT</xsl:attribute>
+                                                                             </xsl:when>
+                                                                             <xsl:when test="contains($Orig,'6178 USGS - National Hydrography')">
+                                                                                 <xsl:attribute name="gml:id">NHD6178</xsl:attribute>
+                                                                             </xsl:when>
+                                                                             <xsl:when test="contains($Orig,'6188 USGS - National')">
+                                                                                 <xsl:comment>NHD6188</xsl:comment>
+                                                                                 <xsl:attribute name="gml:id">NHD6188</xsl:attribute>
+                                                                             </xsl:when>
+                                                                             <xsl:when test="contains($Orig,'7178 USGS - National Hydrography')">
+                                                                                 <xsl:attribute name="gml:id">NHD7178</xsl:attribute>
                                                                              </xsl:when>
                                                                              <xsl:when test="contains($finalTitle,'/')"> 
                                                                                  <xsl:variable name="preSlash" select="substring-before($finalTitle,'/')"/>

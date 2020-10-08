@@ -39,7 +39,7 @@
     
     
     <xsl:template name="ProjectionInfo">
-        <xsl:for-each select="/GPM/Spatial_Reference_Information/EPSG_Reference">
+        <xsl:for-each select="/GPM/Spatial_Reference_Information[1]/Map_Projection[1]/EPSG_Reference[1]">
         <xsl:element name="gmd:referenceSystemInfo">
             <xsl:element name="gmd:MD_ReferenceSystem">
                 <xsl:element name="gmd:referenceSystemIdentifier">

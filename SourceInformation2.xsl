@@ -110,7 +110,7 @@
 
                                                 <!--   <xsl:element name="gml:description"><xsl:value-of select="./Time_Period_of_Content/Currentness_Reference"/></xsl:element>
                                              -->
-                                                <xsl:variable name="BegDate" select="./Time_Period_of_Content/Range_Of_Dates/Beginning_Date"/>
+                                                <xsl:variable name="BegDate" select="./Time_Period_of_Content/Range_of_Dates/Beginning_Date"/>
                                                 <xsl:variable name="TimePeriodNameA" select="./Source_Citation_Abbreviation"/>
 
                                                 <!--  <xsl:choose>
@@ -346,12 +346,12 @@
                                                   </xsl:element>
                                                   <xsl:element name="gml:beginPosition">
                                                   <xsl:value-of
-                                                  select="./Time_Period_of_Content/Range_Of_Dates/Beginning_Date"
+                                                  select="./Time_Period_of_Content/Range_of_Dates/Beginning_Date"
                                                   />
                                                   </xsl:element>
                                                   <xsl:element name="gml:endPosition">
                                                   <xsl:value-of
-                                                  select="./Time_Period_of_Content[1]/Range_Of_Dates[1]/Ending_Date[1]"
+                                                  select="./Time_Period_of_Content[1]/Range_of_Dates[1]/Ending_Date[1]"
                                                   />
                                                   </xsl:element>
                                                   </xsl:element>

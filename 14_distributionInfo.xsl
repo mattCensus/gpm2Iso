@@ -125,7 +125,7 @@
                                             <xsl:element name="gmd:function">
                                                 <xsl:element name="gmd:CI_OnLineFunctionCode">
                                                     <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnlineFunctionCode</xsl:attribute>
-                                                    <xsl:attribute name="codeListValue">download!!!!!</xsl:attribute>download!!!
+                                                    <xsl:attribute name="codeListValue">download</xsl:attribute>download
                                                 </xsl:element>
                                             </xsl:element>
                                         </xsl:otherwise>

@@ -48,7 +48,7 @@
                         <xsl:value-of select="/GPM/Entity_and_Attribute_Information[1]/Feature_Catologue_Description[1]/Feature_Types[1]"/>
                     </xsl:element>
                 </xsl:element>
-                <!-- <xsl:element name="gmd:featureCatalogueCitation">
+             <!--   <xsl:element name="gmd:featureCatalogueCitation">
                     <xsl:element name="gmd:CI_Citation">
                         <xsl:element name="gmd:title">
                             <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Entity_and_Attribute_Information[1]/Feature_Catologue_Description[1]/FC_Title[1]"/></xsl:element>
@@ -70,7 +70,7 @@
                         
                       
                     </xsl:element>
-                    </xsl:element> -->
+                    </xsl:element>  -->
                 <xsl:call-template name="ContentInfoCit"/>
             </xsl:element>
         </xsl:element>
@@ -78,6 +78,9 @@
     </xsl:template>
     
     <xsl:template name="ContentInfoCit">
+        <xsl:choose>
+            <xsl:when test="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description">
+        <xsl:comment>In the ContentInfoCit Template </xsl:comment>
         <xsl:for-each select="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description">
         <xsl:element name="gmd:featureCatalogueCitation">
             <xsl:element name="gmd:CI_Citation">
@@ -106,7 +109,13 @@
             </xsl:element>
         </xsl:element>
         </xsl:for-each>
-        
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="gmd:featureCatalogueCitation">
+                    <xsl:attribute name="gco:nilReason">missing</xsl:attribute>
+                </xsl:element>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
    
     

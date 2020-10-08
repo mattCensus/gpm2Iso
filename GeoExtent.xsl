@@ -49,12 +49,12 @@
                     <xsl:element name="gmd:extent">
                         
                         <xsl:choose>
-                            <xsl:when test="/GPM/Identification_Information[1]/Time_Period_of_Content[1]/Range_Of_Dates[1]/Beginning_Date[1]">
+                            <xsl:when test="/GPM/Identification_Information[1]/Time_Period_of_Content[1]/Range_of_Dates[1]/Beginning_Date[1]">
                                 <xsl:element name="gml:TimePeriod">
                                     <xsl:attribute name="gml:id">boundingTemporalExtentABegDateEndDate</xsl:attribute>
                                     <xsl:element name="gml:description"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content[1]/Currentness_Reference[1]"/></xsl:element>
-                                    <xsl:element name="gml:beginPosition"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content/Range_Of_Dates/Beginning_Date"/></xsl:element>
-                                    <xsl:element name="gml:endPosition"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content/Range_Of_Dates/Ending_Date[1]"/></xsl:element>
+                                    <xsl:element name="gml:beginPosition"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content/Range_of_Dates/Beginning_Date"/></xsl:element>
+                                    <xsl:element name="gml:endPosition"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content/Range_of_Dates/Ending_Date[1]"/></xsl:element>
                                 </xsl:element>
                             </xsl:when>
                             <xsl:when test="/GPM/Identification_Information[1]/Time_Period_of_Content[1]/Calendar_Date[1]">
@@ -103,12 +103,12 @@
                         <xsl:element name="gmd:extent">
                             
                             <xsl:choose>
-                                <xsl:when test="/GPM/Identification_Information[1]/Time_Period_of_Content[1]/Range_Of_Dates[1]/Beginning_Date[1]">
+                                <xsl:when test="/GPM/Identification_Information[1]/Time_Period_of_Content[1]/Range_of_Dates[1]/Beginning_Date[1]">
                                     <xsl:element name="gml:TimePeriod">
                                         <xsl:attribute name="gml:id">boundingTemporalExtentABegDateEndDate</xsl:attribute>
                                         <xsl:element name="gml:description"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content[1]/Currentness_Reference[1]"/></xsl:element>
-                                        <xsl:element name="gml:beginPosition"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content/Range_Of_Dates/Beginning_Date"/></xsl:element>
-                                        <xsl:element name="gml:endPosition"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content/Range_Of_Dates/Ending_Date[1]"/></xsl:element>
+                                        <xsl:element name="gml:beginPosition"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content/Range_of_Dates/Beginning_Date"/></xsl:element>
+                                        <xsl:element name="gml:endPosition"><xsl:value-of select="/GPM/Identification_Information[1]/Time_Period_of_Content/Range_of_Dates/Ending_Date[1]"/></xsl:element>
                                     </xsl:element>
                                 </xsl:when>
                                 <xsl:when test="/GPM/Identification_Information[1]/Time_Period_of_Content[1]/Calendar_Date[1]">

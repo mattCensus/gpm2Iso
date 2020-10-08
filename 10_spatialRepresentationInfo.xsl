@@ -108,6 +108,15 @@
                                         <xsl:when test="$SDTSVAR='Universe polygon composed of chains'">
                                             <xsl:attribute name="codeListValue">surface</xsl:attribute>
                                         </xsl:when>
+                                        <xsl:when test="$SDTSVAR='surface'">
+                                            <xsl:attribute name="codeListValue">surface</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='composite'">
+                                            <xsl:attribute name="codeListValue">composite</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:when test="$SDTSVAR='complex'">
+                                            <xsl:attribute name="codeListValue">complex</xsl:attribute>
+                                        </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:comment>In the otherwise</xsl:comment>
                                             <xsl:value-of select="$SDTSVAR"/>
