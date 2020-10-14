@@ -21,6 +21,10 @@
     </xd:doc>
     
     <xsl:template name="gpm2GmdHierarchyLevel">
+        <xsl:variable name="Title" select="/GPM/Identification_Information[1]/Citation[1]/Title[1]"/>
+        <xsl:choose>
+            <xsl:when test="/GPM/Metadata_Reference_Information[1]/Metadata_Hierarchy_Level[1]">
+        
         <xsl:element name="gmd:hierarchyLevel">
             <xsl:element name="gmd:MD_ScopeCode">
                 <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode</xsl:attribute>
@@ -28,6 +32,64 @@
                 <xsl:value-of select="/GPM/Metadata_Reference_Information[1]/Metadata_Hierarchy_Level[1]"/>
             </xsl:element>
         </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($Title,'Series Information File')">
+                <xsl:element name="gmd:hierarchyLevel">
+                <xsl:element name="gmd:MD_ScopeCode">
+                    <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode</xsl:attribute>
+                    <xsl:attribute name="codeListValue">series</xsl:attribute>
+                    series
+                </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($Title,'TIGERweb')">
+                <xsl:element name="gmd:hierarchyLevel">
+                <xsl:element name="gmd:MD_ScopeCode">
+                    <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode</xsl:attribute>
+                    <xsl:attribute name="codeListValue">service</xsl:attribute>
+                    service
+                </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($Title,'REST Service')">
+                <xsl:element name="gmd:hierarchyLevel">
+                <xsl:element name="gmd:MD_ScopeCode">
+                    <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode</xsl:attribute>
+                    <xsl:attribute name="codeListValue">service</xsl:attribute>
+                    service
+                </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($Title,'Map')">
+                <xsl:element name="gmd:hierarchyLevel">
+                <xsl:element name="gmd:MD_ScopeCode">
+                    <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode</xsl:attribute>
+                    <xsl:attribute name="codeListValue">mapDocument</xsl:attribute>
+                    mapDocument
+                </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($Title,'Planned')">
+                <xsl:element name="gmd:hierarchyLevel">
+                <xsl:element name="gmd:MD_ScopeCode">
+                    <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode</xsl:attribute>
+                    <xsl:attribute name="codeListValue">initiative</xsl:attribute>
+                   initiative
+                </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="gmd:hierarchyLevel">
+                    <xsl:element name="gmd:MD_ScopeCode">
+                        <xsl:attribute name="codeList">http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode</xsl:attribute>
+                        <xsl:attribute name="codeListValue">dataset</xsl:attribute>
+                       dataset
+                    </xsl:element>
+                </xsl:element>
+                
+            </xsl:otherwise>
+           
+        </xsl:choose>
         
         <xsl:if test="/GPM/Metadata_Reference_Information/Metadata_Hierarchy_Level_Name">
              <xsl:element name="gmd:hierarchyLevelName">
