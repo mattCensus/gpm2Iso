@@ -46,12 +46,32 @@
 
             <xsl:element name="gmx:name">
                 <xsl:element name="gco:CharacterString">
-                    <xsl:value-of select="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/FC_Title"/>
+                    <xsl:choose>
+                        <xsl:when test="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/FC_Title">
+                            <xsl:value-of select="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/FC_Title"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:variable name="Title" select="/GPM/Identification_Information[1]/Citation[1]/Title[1]"/>
+                            <xsl:variable name="lastPart" select="fn:substring-after($Title,',')"/>
+                            <xsl:variable name="EaTitle" select="fn:concat('Feature Catalog for the ',$lastPart)"/>
+                            <xsl:value-of select="$EaTitle"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    
                 </xsl:element>
             </xsl:element>
             
             <xsl:element name="gmx:scope">
-                <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/Feature_Types"/></xsl:element>
+                <xsl:element name="gco:CharacterString">
+                <xsl:choose>
+                    <xsl:when test="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/Feature_Types">
+                         <xsl:value-of select="/GPM/Entity_and_Attribute_Information/Feature_Catalogue_Description/Feature_Types"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                       <xsl:value-of select="/GPM/Identification_Information[1]/Keywords[1]/Theme[1]/Theme_Keyword[5]"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+               </xsl:element>
             </xsl:element>
             
             <xsl:choose>
@@ -145,20 +165,95 @@
                                                             
                                                             <xsl:element name="gco:upper">
                                                                 <xsl:variable name="Upper" select="./Range_Domain_Maximum"/>
+                                                                <xsl:variable name="FinalUpper" select="fn:replace($Upper,',', ' ')"/>
+                                                                <xsl:variable name="lenUpper" select="fn:string-length($FinalUpper)"/>
                                                                
                                                                 <xsl:element name="gco:UnlimitedInteger"><!--  -->
-                                                                  <!--  <xsl:choose>
-                                                                        <xsl:when test="contains($Upper,',')">
-                                                                             <xsl:variable name="UnLinInt" select="translate($Upper,',','')"/>
-                                                                            <xsl:value-of select="$UnLinInt"/>
+                                                                 <xsl:choose>
+                                                                     <xsl:when test="fn:contains($FinalUpper,' ')">
+                                                                    <xsl:choose>
+                                                                        <xsl:when test="$lenUpper&lt;4">
+                                                                            <xsl:value-of select="$FinalUpper"/>
                                                                         </xsl:when>
-                                                                        <xsl:otherwise>
-                                                                            <xsl:value-of select="floor($Upper)* ($Upper>=0) + ceiling($Upper) * not($Upper>=0)"/>
-                                                                        </xsl:otherwise>
-                                                                    </xsl:choose> --> 
-                                                                    <xsl:value-of select="$Upper"/>
-                                                                    
-                                                                    
+                                                                        <xsl:when test="$lenUpper=5">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,1)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,3,3)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:concat($FinalUpper2,$FinalUpper3)"/>
+                                                                            <xsl:value-of select="$FinalUpper4"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=6">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,2)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,4)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:concat($FinalUpper2,$FinalUpper3)"/>
+                                                                            <xsl:value-of select="$FinalUpper4"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=7">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,3)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,5,3)"/>
+                                                                            <xsl:variable name="FinalUpper5" select="fn:concat($FinalUpper2,$FinalUpper3)"/>
+                                                                            <xsl:value-of select="$FinalUpper5"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=9">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,1)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,3,3)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:substring($FinalUpper,7)"/>
+                                                                            <xsl:variable name="FinalUpper5" select="fn:concat($FinalUpper2,$FinalUpper3,$FinalUpper4)"/>
+                                                                            <xsl:value-of select="$FinalUpper5"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=10">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,2)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,4,3)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:substring($FinalUpper,8)"/>
+                                                                            <xsl:variable name="FinalUpper5" select="fn:concat($FinalUpper2,$FinalUpper3,$FinalUpper4)"/>
+                                                                            <xsl:value-of select="$FinalUpper5"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=11">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,3)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,5,3)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:substring($FinalUpper,8,3)"/>
+                                                                            <xsl:variable name="FinalUpper5" select="fn:substring($FinalUpper,9,3)"/>
+                                                                            <xsl:variable name="FinalUpper6" select="fn:concat($FinalUpper2,$FinalUpper3,$FinalUpper4,$FinalUpper5)"/>
+                                                                            <xsl:value-of select="$FinalUpper6"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=13">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,1)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,3,3)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:substring($FinalUpper,7,3)"/>
+                                                                            <xsl:variable name="FinalUpper5" select="fn:substring($FinalUpper,11,3)"/>
+                                                                            <xsl:variable name="FinalUpper8" select="fn:concat($FinalUpper2,$FinalUpper3,$FinalUpper4)"/>
+                                                                            <xsl:value-of select="$FinalUpper8"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=14">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,2)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,4,3)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:substring($FinalUpper,8,3)"/>
+                                                                            <xsl:variable name="FinalUpper5" select="fn:substring($FinalUpper,12,3)"/>
+                                                                            <xsl:variable name="FinalUpper8" select="fn:concat($FinalUpper2,$FinalUpper3,$FinalUpper4)"/>
+                                                                            <xsl:value-of select="$FinalUpper8"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=15">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,3)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,5,3)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:substring($FinalUpper,9,3)"/>
+                                                                            <xsl:variable name="FinalUpper5" select="fn:substring($FinalUpper,13,3)"/>
+                                                                            <xsl:variable name="FinalUpper8" select="fn:concat($FinalUpper2,$FinalUpper3,$FinalUpper4)"/>
+                                                                            <xsl:value-of select="$FinalUpper8"/>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="$lenUpper=17">
+                                                                            <xsl:variable name="FinalUpper2" select="fn:substring($FinalUpper,1,1)"/>
+                                                                            <xsl:variable name="FinalUpper3" select="fn:substring($FinalUpper,3,3)"/>
+                                                                            <xsl:variable name="FinalUpper4" select="fn:substring($FinalUpper,7,3)"/>
+                                                                            <xsl:variable name="FinalUpper5" select="fn:substring($FinalUpper,11,3)"/>
+                                                                            <xsl:variable name="FinalUpper6" select="fn:substring($FinalUpper,15,3)"/>
+                                                                            <xsl:variable name="FinalUpper8" select="fn:concat($FinalUpper2,$FinalUpper3,$FinalUpper4)"/>
+                                                                            <xsl:value-of select="$FinalUpper8"/>
+                                                                        </xsl:when>
+                                                                    </xsl:choose>
+                                                                     </xsl:when>
+                                                                     <xsl:otherwise>
+                                                                         <xsl:value-of select="$FinalUpper"/>
+                                                                     </xsl:otherwise>
+                                                                 </xsl:choose>
                                                                 </xsl:element>
                                                             </xsl:element>
                                                             
@@ -199,13 +294,13 @@
                                     <xsl:when test="contains($DefRef,'Office of Management and Budget')">
                                         <xsl:element name="gfc:definitionReference">
                                             <xsl:attribute name="xlink:title">Office of Management and Budget (OMB)</xsl:attribute>
-                                            <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
+                                            <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
                                         </xsl:element>
                                     </xsl:when>
                                     <xsl:when test="contains($DefRef,'OMB')">
                                         <xsl:element name="gfc:definitionReference">
                                             <xsl:attribute name="xlink:title">Office of Management and Budget (OMB)</xsl:attribute>
-                                            <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
+                                            <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
                                         </xsl:element>
                                     </xsl:when>
                                     <xsl:when test="contains($DefRef, 'United States Geological Survey')">
@@ -284,13 +379,13 @@
                                                     <xsl:when test="contains($DomValueRef,'Office of Management and Budget')">
                                                         <xsl:element name="gfc:definitionReference">
                                                             <xsl:attribute name="xlink:title">Office of Management and Budget (OMB)</xsl:attribute>
-                                                            <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
+                                                            <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
                                                         </xsl:element>
                                                     </xsl:when>
                                                     <xsl:when test="contains($DomValueRef,'OMB')">
                                                         <xsl:element name="gfc:definitionReference">
                                                             <xsl:attribute name="xlink:title">Office of Management and Budget (OMB)</xsl:attribute>
-                                                            <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
+                                                            <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
                                                         </xsl:element>
                                                     </xsl:when>
                                                     <xsl:when test="contains($DomValueRef, 'United States Geological Survey')">
@@ -384,19 +479,19 @@
                                                 <xsl:when test="contains($CodesetRef,'Office of Management and Budget')">
                                                     <xsl:element name="gfc:definitionReference">
                                                         <xsl:attribute name="xlink:title">Office of Management and Budget (OMB)</xsl:attribute>
-                                                        <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
                                                     </xsl:element>
                                                 </xsl:when>
                                                 <xsl:when test="contains($CodesetRef,'OMB')">
                                                     <xsl:element name="gfc:definitionReference">
                                                         <xsl:attribute name="xlink:title">Office of Management and Budget (OMB)</xsl:attribute>
-                                                        <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/5c2bfb61-0530-4cf8-8f46-5ee07a2accb9</xsl:attribute>
                                                     </xsl:element>
                                                 </xsl:when>
                                                 <xsl:when test="contains($CodesetRef, 'United States Geological Survey')">
                                                     <xsl:element name="gfc:definitionReference">
                                                         <xsl:attribute name="xlink:title">United States Geological Survey (USGS)</xsl:attribute>
-                                                        <xsl:attribute name="xlink:href">>http://www.ngdc.noaa.gov/docucomp/8d0b86d3-09b4-4fc4-8e8e-2922517fe12d </xsl:attribute>
+                                                        <xsl:attribute name="xlink:href">http://www.ngdc.noaa.gov/docucomp/8d0b86d3-09b4-4fc4-8e8e-2922517fe12d </xsl:attribute>
                                                     </xsl:element>
                                                 </xsl:when>
                                                 <xsl:when test="contains($CodesetRef, 'USGS')">
@@ -446,5 +541,37 @@
         </xsl:element>
     </xsl:template>
     
+    <xsl:template name="convert-comma">
+        <xsl:param name="text"/>
+        <xsl:choose>
+            <xsl:when test="contains($text,',')">
+                <xsl:value-of select="substring-before($text,',')"/>
+                <xsl:value-of select="','"/>
+                <xsl:call-template name="convert-space">
+                    <xsl:with-param name="text" select="substring-after($text,',')"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$text"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template name="convert-space">
+        <xsl:param name="text"/>
+        <xsl:choose>
+            <xsl:when test="contains($text,',')">
+                <xsl:value-of select="substring-before($text,',')"/>
+                <xsl:value-of select="' '"/>
+                <xsl:call-template name="convert-comma">
+                    <xsl:with-param name="text" select="substring-after($text,',')"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$text"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
 
 </xsl:stylesheet>
