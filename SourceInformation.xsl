@@ -79,7 +79,13 @@
                                                      <xsl:when test="contains($DateType,'Unknown')">
                                                          <xsl:attribute name="gco:nilReason">unknown</xsl:attribute>
                                                      </xsl:when>
-                                                     <xsl:when test="fn:contains($DateType,'Unpublished material')">
+                                                     <xsl:when test="contains($DateType,'Unpublished material')">
+                                                         <xsl:attribute name="gco:nilReason">withheld</xsl:attribute>
+                                                     </xsl:when>
+                                                     <xsl:when test="contains($DateType,'Unpublished material')">
+                                                         <xsl:attribute name="gco:nilReason">withheld</xsl:attribute>
+                                                     </xsl:when>
+                                                     <xsl:when test="contains($DateType,'Unpublished material')">
                                                          <xsl:attribute name="gco:nilReason">withheld</xsl:attribute>
                                                      </xsl:when>
                                                      <!--   <xsl:otherwise>

@@ -65,6 +65,102 @@
                     <xsl:element name="gco:CharacterString">http://opengis.net/spec/wms</xsl:element>
                 </xsl:element>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="gmd:applicationProfile">
+                    <xsl:element name="gco:CharacterString">Subdirectories</xsl:element>
+                </xsl:element>
+            </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template name='name'>
+        <xsl:param name="netWorkRes"/>
+        <xsl:variable name="filenameA" select="fn:substring-after($netWorkRes,'tiger/')"/>
+        <xsl:variable name="finalFileName" select="fn:substring-after($filenameA,'/t')"/>
+        <xsl:variable name="finalFileNameB" select="fn:concat('t',$finalFileName)"/>
+        <xsl:variable name="fileDesc" select="fn:concat('This zip file contains the',$finalFileNameB,' shapefiile')"/>
+        <xsl:variable name="fileDirDes" select="fn:concat('This directory contains files for the ', $finalFileNameB, ' shapefiles' )"/>
+        <xsl:variable name="eaFile" select="fn:concat('This directory contains the entity and attribute ', $finalFileNameB, ' shapefiles' )" />
+        <xsl:variable name="SeriesCheck" select="/GPM/Identification_Information[1]/Citation[1]/Title[1]"/>
+        <xsl:variable name="SeriesCheck2" select="fn:contains($SeriesCheck,'Series Information for the ')"/>
+        
+        <xsl:choose>
+            <xsl:when test="fn:contains($SeriesCheck,'Series Information for the ')">
+                <xsl:element name="gmd:name">
+                    <!--  <xsl:comment>In the name template for A<xsl:value-of select="$finalFileName"/></xsl:comment>-->
+                    <xsl:element name="gco:CharacterString">This is the <xsl:value-of select="$filenameA"/> directory</xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="fn:string-length($finalFileName)>0">
+                <xsl:element name="gmd:name">
+                   <!--   <xsl:comment>In the name template for A2<xsl:value-of select="$finalFileName"/></xsl:comment>-->
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="$filenameA"/></xsl:element>
+                    <xsl:comment><xsl:value-of select="$SeriesCheck2"/></xsl:comment>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="gmd:name">
+                    <!--  <xsl:comment>In the name template for B<xsl:value-of select="$netWorkRes"/></xsl:comment>-->
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="$netWorkRes"/></xsl:element>
+                </xsl:element>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+        <xsl:choose>
+            <xsl:when test="./Network_Address/Network_Resource_Description">           
+                <xsl:element name="gmd:description">
+                   <!--   <xsl:comment>Here 1</xsl:comment>-->
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="./Network_Address[1]/Network_Resource_Description[1]"/></xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($finalFileName,'.zip')">
+                <xsl:element name="gmd:description">
+                    <!--<xsl:comment>Here 2</xsl:comment> -->
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="$fileDesc"/></xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($finalFileName,'.ea')">
+                <xsl:element name="gmd:description">
+                    <!--  <xsl:comment>Here 3</xsl:comment> -->
+                    <xsl:element name="gco:CharacterString"><xsl:value-of select="$eaFile"/></xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($netWorkRes,'technical')">
+                <xsl:element name="gmd:description">
+                    <!-- <xsl:comment>Here 4</xsl:comment> -->
+                    <xsl:element name="gco:CharacterString">TIGER/Line Shapefiles and TIGER/Line Files Technical Documentation</xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="contains($netWorkRes,'https://www2.census.gov/geo/tiger/')">
+                <!-- <xsl:comment>Here 5</xsl:comment> -->
+                <xsl:element name="gmd:description">
+                    <xsl:element name="gco:CharacterString">Download directory for the <xsl:value-of select="$filenameA"/> files.</xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="gmd:description">
+                    <xsl:element name="gco:CharacterString">missing theme Finalfile name: <xsl:value-of select="$finalFileNameB"/> and <xsl:value-of select="$finalFileName"/></xsl:element>
+                </xsl:element>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+   <!--  --> <xsl:template name="description">
+       <xsl:comment>In the description Template</xsl:comment>
+        <xsl:choose>
+            <xsl:when test="/GPM/Distribution_Information[1]/Standard_Order_Process[1]/Digital_Form[1]/Network_Address[1]/Network_Resource_Description[1]">
+                <xsl:element name="gmd:description">
+                    <xsl:element name="gco:CharacterString">
+                        <xsl:value-of select="."/>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="gmd:description">
+                    <xsl:element name="gco:CharacterString">This is information from the Census Website</xsl:element>
+                </xsl:element>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:template>
 </xsl:stylesheet>

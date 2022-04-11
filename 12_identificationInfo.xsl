@@ -82,6 +82,7 @@
                                     <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information[1]/Cross_Reference[1]/Citation[1]/Title[1]"/></xsl:element>
                                 </xsl:element>
                                 
+                                
                                 <xsl:element name="gmd:date">
                                     <xsl:element name="gmd:CI_Date">
                                         <xsl:element name="gmd:date">
@@ -187,4 +188,6 @@
         </xsl:element>
         </xsl:element>
     </xsl:template>
+    
+  
 </xsl:stylesheet>

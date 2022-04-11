@@ -119,7 +119,7 @@
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:comment>In the otherwise</xsl:comment>
-                                            <xsl:value-of select="$SDTSVAR"/>
+                                            <xsl:attribute name="codeListValue"><xsl:value-of select="$SDTSVAR"/></xsl:attribute>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 

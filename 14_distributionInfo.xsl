@@ -97,11 +97,11 @@
                                         <!-- <xsl:with-param name="digitalForm" select="$digitalForm"/> -->
                                         <xsl:with-param name="netWorkRes" select="$netResName"/>
                                     </xsl:call-template>
-                                    <xsl:if test="./Network_Address/Network_Resource_Description">
-                                        <xsl:element name="gmd:description">
-                                            <xsl:element name="gco:CharacterString"><xsl:value-of select="./Network_Address[1]/Network_Resource_Description[1]"/></xsl:element>
-                                        </xsl:element>
-                                    </xsl:if>
+                                    <xsl:call-template name="name">
+                                        <xsl:with-param name="netWorkRes" select="$netResName"/>
+                                    </xsl:call-template>
+                                  <!--  <xsl:call-template name="description"/>-->
+                                    
                                    
                                     <xsl:choose>
                                         
@@ -143,7 +143,16 @@
                 </xsl:if>
                 
                 <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]/REST_URL[1]">
-                    <xsl:call-template name="RestNGDA"/>
+                    <xsl:variable name="Title" select="/GPM/Identification_Information[1]/Citation[1]/Title"/>
+                    <xsl:choose>
+                        <xsl:when test="fn:contains($Title,'Series Information for the')">
+                            <xsl:call-template name="RestNGDASeriesInfoState"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="RestNGDA"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    
                 </xsl:if>
                 
             </xsl:element>

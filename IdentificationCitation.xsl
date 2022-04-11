@@ -31,11 +31,16 @@
                 <xsl:element name="gmd:title">
                     <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information/Citation/Title"/></xsl:element>
                 </xsl:element>
-                <xsl:if test="/GPM/Identification_Information[1]/Citation[1]/Alternate_Title[1]">
+              <!--    <xsl:if test="/GPM/FGDC_Required[1]/NGDA_Info[1]/Alternate_Title[1]">
                     <xsl:element name="gmd:alternateTitle">
-                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/Identification_Information/Citation/Alternate_Title[1]"/></xsl:element>
+                        <xsl:element name="gco:CharacterString"><xsl:value-of select="/GPM/FGDC_Required[1]/NGDA_Info[1]/Alternate_Title[1]"/></xsl:element>
                     </xsl:element>
-                </xsl:if>
+                </xsl:if>-->
+                <xsl:for-each select="/GPM/FGDC_Required[1]/NGDA_Info[1]/Alternate_Title">
+                    <xsl:element name="gmd:alternateTitle">
+                        <xsl:element name="gco:CharacterString"><xsl:value-of select="."/></xsl:element>
+                    </xsl:element>
+                </xsl:for-each>
                 <xsl:element name="gmd:date">
                     <xsl:element name="gmd:CI_Date">
                         <xsl:comment>This is the publication date</xsl:comment>
